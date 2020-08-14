@@ -1,0 +1,6 @@
+framework module Pods_Accountability {
+  umbrella header "Pods-Accountability-umbrella.h"
+
+  export *
+  module * { export * }
+}

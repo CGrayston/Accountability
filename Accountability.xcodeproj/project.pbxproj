@@ -3,27 +3,56 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A831C965A30E1AC18962AF14 /* Pods_Accountability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1FEC6FCBCD77E7202962835 /* Pods_Accountability.framework */; };
+		FF2192CE24E62D8800D8A316 /* NotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2192CD24E62D8800D8A316 /* NotesListView.swift */; };
+		FF2192D024E6370100D8A316 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2192CF24E6370100D8A316 /* Entry.swift */; };
 		FF5BAEEC24D92563004B2DE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BAEEB24D92563004B2DE9 /* AppDelegate.swift */; };
 		FF5BAEEE24D92563004B2DE9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BAEED24D92563004B2DE9 /* SceneDelegate.swift */; };
-		FF5BAEF024D92563004B2DE9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BAEEF24D92563004B2DE9 /* ContentView.swift */; };
+		FF5BAEF024D92563004B2DE9 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BAEEF24D92563004B2DE9 /* TaskListView.swift */; };
 		FF5BAEF224D92569004B2DE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5BAEF124D92569004B2DE9 /* Assets.xcassets */; };
 		FF5BAEF524D92569004B2DE9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5BAEF424D92569004B2DE9 /* Preview Assets.xcassets */; };
 		FF5BAEF824D92569004B2DE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5BAEF624D92569004B2DE9 /* LaunchScreen.storyboard */; };
+		FF5BAF0024D9258C004B2DE9 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BAEFF24D9258C004B2DE9 /* Task.swift */; };
+		FF5BAF0624D93232004B2DE9 /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BAF0524D93232004B2DE9 /* TaskCellViewModel.swift */; };
+		FF72915A24E0CAEB00170080 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF72915924E0CAEB00170080 /* SettingsView.swift */; };
+		FF8DA0DC24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8DA0DB24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift */; };
+		FF9CC64B24DBB05F0065C9CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF9CC64A24DBB05F0065C9CF /* GoogleService-Info.plist */; };
+		FF9CC64E24DBB98F0065C9CF /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CC64D24DBB98F0065C9CF /* TaskRepository.swift */; };
+		FF9CC65024DBCE8F0065C9CF /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CC64F24DBCE8F0065C9CF /* SignInWithAppleButton.swift */; };
+		FF9CC65224DBCF860065C9CF /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CC65124DBCF860065C9CF /* SignInView.swift */; };
+		FFAE6FD824E3AC4A005FE734 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE6FD724E3AC4A005FE734 /* TabBarView.swift */; };
+		FFEACC5424DBA475002346E1 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEACC5324DBA475002346E1 /* TaskListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2BB7123AF19626C9D2A15B89 /* Pods-Accountability.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accountability.debug.xcconfig"; path = "Target Support Files/Pods-Accountability/Pods-Accountability.debug.xcconfig"; sourceTree = "<group>"; };
+		B1FEC6FCBCD77E7202962835 /* Pods_Accountability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accountability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2179781E029F12D031A851D /* Pods-Accountability.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accountability.release.xcconfig"; path = "Target Support Files/Pods-Accountability/Pods-Accountability.release.xcconfig"; sourceTree = "<group>"; };
+		FF2192CD24E62D8800D8A316 /* NotesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListView.swift; sourceTree = "<group>"; };
+		FF2192CF24E6370100D8A316 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		FF5BAEE824D92563004B2DE9 /* Accountability.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Accountability.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF5BAEEB24D92563004B2DE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF5BAEED24D92563004B2DE9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FF5BAEEF24D92563004B2DE9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FF5BAEEF24D92563004B2DE9 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		FF5BAEF124D92569004B2DE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF5BAEF424D92569004B2DE9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FF5BAEF724D92569004B2DE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF5BAEF924D92569004B2DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF5BAEFF24D9258C004B2DE9 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		FF5BAF0524D93232004B2DE9 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
+		FF72915924E0CAEB00170080 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FF8DA0DB24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleCoordinator.swift; sourceTree = "<group>"; };
+		FF8DA0DD24DCF5EC002BD054 /* Accountability.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Accountability.entitlements; sourceTree = "<group>"; };
+		FF9CC64A24DBB05F0065C9CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FF9CC64D24DBB98F0065C9CF /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
+		FF9CC64F24DBCE8F0065C9CF /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
+		FF9CC65124DBCF860065C9CF /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		FFAE6FD724E3AC4A005FE734 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		FFEACC5324DBA475002346E1 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +60,90 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A831C965A30E1AC18962AF14 /* Pods_Accountability.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0150E2DD379DF4C088DEA522 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B1FEC6FCBCD77E7202962835 /* Pods_Accountability.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		24EADFD615CBAD3F0FABF620 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2BB7123AF19626C9D2A15B89 /* Pods-Accountability.debug.xcconfig */,
+				D2179781E029F12D031A851D /* Pods-Accountability.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FF2192D124E6396000D8A316 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				FF5BAEEF24D92563004B2DE9 /* TaskListView.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		FF2192D224E6396C00D8A316 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				FFAE6FD724E3AC4A005FE734 /* TabBarView.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		FF2192D324E6398E00D8A316 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				FF72915924E0CAEB00170080 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		FF2192D424E6399700D8A316 /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				FF2192CD24E62D8800D8A316 /* NotesListView.swift */,
+			);
+			path = Notes;
+			sourceTree = "<group>";
+		};
+		FF2192D524E639B400D8A316 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				FF9CC64F24DBCE8F0065C9CF /* SignInWithAppleButton.swift */,
+				FF9CC65124DBCF860065C9CF /* SignInView.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		FF2192D624E639DB00D8A316 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FF5BAEF124D92569004B2DE9 /* Assets.xcassets */,
+				FF5BAEF624D92569004B2DE9 /* LaunchScreen.storyboard */,
+				FF5BAEF924D92569004B2DE9 /* Info.plist */,
+				FF9CC64A24DBB05F0065C9CF /* GoogleService-Info.plist */,
+				FF5BAEF324D92569004B2DE9 /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		FF5BAEDF24D92563004B2DE9 = {
 			isa = PBXGroup;
 			children = (
 				FF5BAEEA24D92563004B2DE9 /* Accountability */,
 				FF5BAEE924D92563004B2DE9 /* Products */,
+				24EADFD615CBAD3F0FABF620 /* Pods */,
+				0150E2DD379DF4C088DEA522 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,13 +158,14 @@
 		FF5BAEEA24D92563004B2DE9 /* Accountability */ = {
 			isa = PBXGroup;
 			children = (
-				FF5BAEEB24D92563004B2DE9 /* AppDelegate.swift */,
-				FF5BAEED24D92563004B2DE9 /* SceneDelegate.swift */,
-				FF5BAEEF24D92563004B2DE9 /* ContentView.swift */,
-				FF5BAEF124D92569004B2DE9 /* Assets.xcassets */,
-				FF5BAEF624D92569004B2DE9 /* LaunchScreen.storyboard */,
-				FF5BAEF924D92569004B2DE9 /* Info.plist */,
-				FF5BAEF324D92569004B2DE9 /* Preview Content */,
+				FF8DA0DD24DCF5EC002BD054 /* Accountability.entitlements */,
+				FF5BAF0224D92653004B2DE9 /* App */,
+				FF8DA0DA24DCF1D6002BD054 /* Services */,
+				FF9CC64C24DBB9790065C9CF /* Repositories */,
+				FF5BAF0124D92592004B2DE9 /* Model */,
+				FF5BAF0424D9321D004B2DE9 /* ViewModels */,
+				FF5BAF0324D9265F004B2DE9 /* Views */,
+				FF2192D624E639DB00D8A316 /* Resources */,
 			);
 			path = Accountability;
 			sourceTree = "<group>";
@@ -75,6 +178,61 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		FF5BAF0124D92592004B2DE9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FF5BAEFF24D9258C004B2DE9 /* Task.swift */,
+				FF2192CF24E6370100D8A316 /* Entry.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FF5BAF0224D92653004B2DE9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				FF5BAEEB24D92563004B2DE9 /* AppDelegate.swift */,
+				FF5BAEED24D92563004B2DE9 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		FF5BAF0324D9265F004B2DE9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FF2192D124E6396000D8A316 /* Tasks */,
+				FF2192D424E6399700D8A316 /* Notes */,
+				FF2192D224E6396C00D8A316 /* TabBar */,
+				FF2192D524E639B400D8A316 /* SignIn */,
+				FF2192D324E6398E00D8A316 /* Settings */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FF5BAF0424D9321D004B2DE9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FF5BAF0524D93232004B2DE9 /* TaskCellViewModel.swift */,
+				FFEACC5324DBA475002346E1 /* TaskListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FF8DA0DA24DCF1D6002BD054 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FF8DA0DB24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FF9CC64C24DBB9790065C9CF /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				FF9CC64D24DBB98F0065C9CF /* TaskRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +240,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FF5BAEFC24D92569004B2DE9 /* Build configuration list for PBXNativeTarget "Accountability" */;
 			buildPhases = (
+				F41E4D19D4B7B2CB0EF905EE /* [CP] Check Pods Manifest.lock */,
 				FF5BAEE424D92563004B2DE9 /* Sources */,
 				FF5BAEE524D92563004B2DE9 /* Frameworks */,
 				FF5BAEE624D92563004B2DE9 /* Resources */,
+				E106CE4F93C8DA991682C210 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -134,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF5BAEF824D92569004B2DE9 /* LaunchScreen.storyboard in Resources */,
+				FF9CC64B24DBB05F0065C9CF /* GoogleService-Info.plist in Resources */,
 				FF5BAEF524D92569004B2DE9 /* Preview Assets.xcassets in Resources */,
 				FF5BAEF224D92569004B2DE9 /* Assets.xcassets in Resources */,
 			);
@@ -141,14 +302,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E106CE4F93C8DA991682C210 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Accountability/Pods-Accountability-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Accountability/Pods-Accountability-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Accountability/Pods-Accountability-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F41E4D19D4B7B2CB0EF905EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Accountability-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FF5BAEE424D92563004B2DE9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF2192D024E6370100D8A316 /* Entry.swift in Sources */,
+				FF8DA0DC24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift in Sources */,
+				FF9CC65224DBCF860065C9CF /* SignInView.swift in Sources */,
+				FF5BAF0024D9258C004B2DE9 /* Task.swift in Sources */,
 				FF5BAEEC24D92563004B2DE9 /* AppDelegate.swift in Sources */,
+				FF2192CE24E62D8800D8A316 /* NotesListView.swift in Sources */,
 				FF5BAEEE24D92563004B2DE9 /* SceneDelegate.swift in Sources */,
-				FF5BAEF024D92563004B2DE9 /* ContentView.swift in Sources */,
+				FF5BAEF024D92563004B2DE9 /* TaskListView.swift in Sources */,
+				FF5BAF0624D93232004B2DE9 /* TaskCellViewModel.swift in Sources */,
+				FFEACC5424DBA475002346E1 /* TaskListViewModel.swift in Sources */,
+				FF9CC65024DBCE8F0065C9CF /* SignInWithAppleButton.swift in Sources */,
+				FF9CC64E24DBB98F0065C9CF /* TaskRepository.swift in Sources */,
+				FFAE6FD824E3AC4A005FE734 /* TabBarView.swift in Sources */,
+				FF72915A24E0CAEB00170080 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +484,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -282,13 +496,15 @@
 		};
 		FF5BAEFD24D92569004B2DE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BB7123AF19626C9D2A15B89 /* Pods-Accountability.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Accountability/Accountability.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Accountability/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Accountability/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2P8CC25627;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Accountability/Info.plist;
+				INFOPLIST_FILE = Accountability/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,13 +518,15 @@
 		};
 		FF5BAEFE24D92569004B2DE9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2179781E029F12D031A851D /* Pods-Accountability.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Accountability/Accountability.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Accountability/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Accountability/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2P8CC25627;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Accountability/Info.plist;
+				INFOPLIST_FILE = Accountability/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

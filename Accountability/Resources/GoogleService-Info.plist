@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>340698542667-0jqnluc2f7usn7lkri4otfiameie05h6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.340698542667-0jqnluc2f7usn7lkri4otfiameie05h6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDpMy7hphIA6wb8S3biGyXZPj0twsNZr1k</string>
+	<key>GCM_SENDER_ID</key>
+	<string>340698542667</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.chrisgrayston.Accountability</string>
+	<key>PROJECT_ID</key>
+	<string>accountability-fb2df</string>
+	<key>STORAGE_BUCKET</key>
+	<string>accountability-fb2df.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:340698542667:ios:71216237233126143893ce</string>
+	<key>DATABASE_URL</key>
+	<string>https://accountability-fb2df.firebaseio.com</string>
+</dict>
+</plist>
