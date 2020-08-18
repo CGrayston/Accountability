@@ -10,10 +10,9 @@ import SwiftUI
 import Firebase
 
 struct TaskListView: View {
+    
     @ObservedObject var taskListVM = TaskListViewModel()
     @Environment(\.colorScheme) var colorScheme
-
-    let tasks = testDataTasks
     
     @State var presentAddNewItem = false
     
@@ -66,12 +65,6 @@ struct TaskListView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskListView().previewDevice("iPhone 11")
-    }
-}
-
 struct TaskCell: View {
     @ObservedObject var taskCellVM: TaskCellViewModel
     
@@ -89,5 +82,11 @@ struct TaskCell: View {
                 self.onCommit(self.taskCellVM.task)
             })
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        TaskListView().previewDevice("iPhone 11")
     }
 }

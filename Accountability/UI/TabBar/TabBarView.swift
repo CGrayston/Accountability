@@ -12,7 +12,8 @@ struct TabBarView: View {
     
     private let tabFont: Font = .system(size: 24, weight: .regular)
     
-    @State var selectedView = 0
+    // TODO: Change back to 0 after testing EntryListView
+    @State var selectedView = 3
     
     var body: some View {
         
@@ -40,7 +41,7 @@ struct TabBarView: View {
             }.tag(2)
             
             // Fourth tab
-            NotesListView()
+            EntryListView()
                 .tabItem {
                     Image(systemName: "book.fill")
                         .font(tabFont)

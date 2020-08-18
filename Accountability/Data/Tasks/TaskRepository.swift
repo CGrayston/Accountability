@@ -22,7 +22,10 @@ class TaskRepository: ObservableObject {
     }
     
     func loadData() {
-        let userId = Auth.auth().currentUser?.uid
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("No userId when attempting to loadData in TaskRepository")
+            return
+        }
         
         db.collection("tasks")
             .order(by: "createdTime")
@@ -31,8 +34,7 @@ class TaskRepository: ObservableObject {
                 if let querySnapshot = querySnapshot {
                     self.tasks = querySnapshot.documents.compactMap { document in
                         do {
-                            let x = try document.data(as: Task.self)
-                            return x
+                            return try document.data(as: Task.self)
                         }
                         catch {
                             print(error)
@@ -62,7 +64,6 @@ class TaskRepository: ObservableObject {
             }
             catch {
                 fatalError("Unable to encode task on update: \(error.localizedDescription)")
-                
             }
         }
     }

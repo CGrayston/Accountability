@@ -16,6 +16,7 @@ class TaskListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
+        // TODO: UseCase intermediate
         taskRepository.$tasks
             .map { tasks in
                 tasks.map { task in

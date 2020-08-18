@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-// Observe any changes we make to properties in thsi view models
+// Observe any changes we make to properties in this view models
 class TaskCellViewModel: ObservableObject, Identifiable {
     @Published var taskRepository = TaskRepository()
     
@@ -39,7 +39,6 @@ class TaskCellViewModel: ObservableObject, Identifiable {
         
         $task
             .dropFirst()
-            // Only send updates 0.8 seconds after you are done typing
             .debounce(for: 0.8, scheduler: RunLoop.main)
             .sink { task in
                 self.taskRepository.updateTask(task)

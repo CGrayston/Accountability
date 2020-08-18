@@ -11,17 +11,19 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Entry: Codable, Identifiable {
-    var title: String
-    var body: String
     
     @DocumentID var id: String?
-    @ServerTimestamp var createdTime: Timestamp?
+    var title: String
+    var body: String
+    var createdTime: Date
+    
+    var userId: String?
 }
 
 #if DEBUG
-let entries: [Entry] = [
-    Entry(title: "First Journal", body: "First journal entry"),
-    Entry(title: "Second Journal", body: "Second journal entry"),
-    Entry(title: "Third Journal", body: "Third journal entry"),
+let debugEntries: [Entry] = [
+    Entry(title: "First Journal", body: "First journal entry", createdTime: Date()),
+    Entry(title: "Second Journal", body: "Second journal entry", createdTime: Date()),
+    Entry(title: "Third Journal", body: "Third journal entry", createdTime: Date()),
 ]
 #endif
