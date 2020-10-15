@@ -7,64 +7,39 @@
 //
 
 import Foundation
-import Firebase
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 
-class TaskRepository: ObservableObject {
+protocol TaskRepository {
     
-    let db = Firestore.firestore()
+    func fetchAllTasks(completion: @escaping (Result<[Task], Error>) -> Void)
     
-    @Published var tasks = [Task]()
+    func addTask(task: Task, completion: @escaping (Result<Void, Error>) -> Void)
     
-    init() {
-        loadData()
+    func updateTask(task: Task, completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+final class TaskDataRepository: TaskRepository {
+    
+    let remoteDataSource: TaskDataSource
+    
+    init(remoteDataSource: TaskDataSource) {
+        self.remoteDataSource = remoteDataSource
     }
     
-    func loadData() {
-        guard let userId = Auth.auth().currentUser?.uid else {
-            print("No userId when attempting to loadData in TaskRepository")
-            return
-        }
-        
-        db.collection("tasks")
-            .order(by: "createdTime")
-            .whereField("userId", isEqualTo: userId)
-            .addSnapshotListener { (querySnapshot, error) in
-                if let querySnapshot = querySnapshot {
-                    self.tasks = querySnapshot.documents.compactMap { document in
-                        do {
-                            return try document.data(as: Task.self)
-                        }
-                        catch {
-                            print(error)
-                        }
-                        return nil
-                    }
-                }
+    func fetchAllTasks(completion: @escaping (Result<[Task], Error>) -> Void) {
+        remoteDataSource.fetchAllTasks { result in
+            completion(result)
         }
     }
     
-    func addTask(_ task: Task) {
-        do {
-            var addedTask = task
-            let userId = Auth.auth().currentUser?.uid
-            addedTask.userId = userId
-            let _ = try db.collection("tasks").addDocument(from: addedTask)
-        }
-        catch {
-            fatalError("Unable to encode task on add: \(error.localizedDescription)")
+    func addTask(task: Task, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.addTask(task: task) { result in
+            completion(result)
         }
     }
     
-    func updateTask(_ task: Task) {
-        if let taskID = task.id {
-            do {
-                try db.collection("tasks").document(taskID).setData(from: task)
-            }
-            catch {
-                fatalError("Unable to encode task on update: \(error.localizedDescription)")
-            }
+    func updateTask(task: Task, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.updateTask(task: task) { result in
+            completion(result)
         }
     }
 }

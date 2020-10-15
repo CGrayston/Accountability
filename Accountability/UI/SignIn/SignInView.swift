@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import Firebase
+import GoogleSignIn
 
 struct SignInView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -18,18 +20,22 @@ struct SignInView: View {
     var body: some View {
         VStack {
             Text("Please Sign In Here")
-            SignInWithAppleButton()
+            
+//            SignInWithAppleButton()
+//                .frame(width: 280, height: 45)
+//                .onTapGesture {
+//                    self.coordinator = SignInWithAppleCoordinator()
+//                    if let coordinator = self.coordinator {
+//                        coordinator.startSignInWithAppleFlow {
+//                            // Successfully signed in
+//                            //self.showTaskListView.toggle()
+//                            self.presentationMode.wrappedValue.dismiss()
+//                        }
+//                    }
+//            }
+            
+            SignInWithGoogleButton()
                 .frame(width: 280, height: 45)
-                .onTapGesture {
-                    self.coordinator = SignInWithAppleCoordinator()
-                    if let coordinator = self.coordinator {
-                        coordinator.startSignInWithAppleFlow {
-                            // Successfully signed in
-                            //self.showTaskListView.toggle()
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
-                    }
-            }
         }
     }
 }

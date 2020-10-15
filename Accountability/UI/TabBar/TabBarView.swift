@@ -12,35 +12,33 @@ struct TabBarView: View {
     
     private let tabFont: Font = .system(size: 24, weight: .regular)
     
-    // TODO: Change back to 0 after testing EntryListView
-    @State var selectedView = 3
+    @State var selectedView = 0
     
     var body: some View {
         
         TabView(selection: $selectedView) {
-            // First tab
+            // Goals tab
+            GoalCollectionView()
+                .tabItem {
+                    Image(systemName: "bolt.circle.fill")
+                        .font(tabFont)
+                }.tag(0)
+            
+            // Tasks tab
             TaskListView()
                 .tabItem {
                     Image(systemName: "checkmark.circle.fill")
                         .font(tabFont)
-            }.tag(0)
-            
-            
-            // Second tab
-            Text("TODO: Streaks")
-                .tabItem {
-                    Image(systemName: "bolt.circle.fill")
-                        .font(tabFont)
             }.tag(1)
+
+            // Group Chat tab
+//            Text("TODO: Group Chat")
+//                .tabItem {
+//                    Image(systemName: "bubble.middle.bottom.fill")
+//                        .font(tabFont)
+//            }.tag(2)
             
-            // Third tab
-            Text("TODO: Group Chat")
-                .tabItem {
-                    Image(systemName: "bubble.middle.bottom.fill")
-                        .font(tabFont)
-            }.tag(2)
-            
-            // Fourth tab
+            // Journal tab
             EntryListView()
                 .tabItem {
                     Image(systemName: "book.fill")

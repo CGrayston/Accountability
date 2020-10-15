@@ -52,8 +52,7 @@ struct TaskListView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 24, trailing: 20))
                 }
                 .navigationBarTitle("Tasks")
-                .navigationBarItems(trailing:
-                    NavigationLink(destination: SettingsView(), label: {
+                .navigationBarItems(trailing: NavigationLink(destination: SettingsView(viewModel: SettingsViewModel()), label: {
                         Image("gearshape")
                             .font(.system(size: 24, weight: .regular))
                             .accentColor(.red)

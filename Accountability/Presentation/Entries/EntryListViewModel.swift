@@ -10,20 +10,49 @@ import Foundation
 import Combine
 
 class EntryListViewModel: ObservableObject {
-    @Published var entryRepository = EntryRepository()
+
     @Published var entryCellViewModels = [EntryCellViewModel]()
+    @Published var entries = [Entry]()
     
+    private let fetchAllEntriesUseCase = UseCaseProvider().fetchAllEntriesUseCase
+    private let createEntryUseCase = UseCaseProvider().createEntryUseCase
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        entryRepository.$entries
-            .map { entries in
-                // TODO UseCase intermediate
-                entries.map { entry in
-                    EntryCellViewModel(entry: entry)
+        fetchAllEntries()
+    }
+    
+    func fetchAllEntries() {
+        fetchAllEntriesUseCase.execute { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let entries):
+                self.entries = entries
+                
+                self.$entries
+                    .map { entries in
+                        entries.map { entry in
+                            EntryCellViewModel(entry: entry)
+                        }
                 }
+                .assign(to: \.entryCellViewModels, on : self)
+                .store(in: &self.cancellables)
+                
+            case .failure(let error):
+                fatalError("TODO: Handle error here \(error.localizedDescription)")
+            }
         }
-        .assign(to: \.entryCellViewModels, on : self)
-        .store(in: &cancellables)
+    }
+    
+    func createNewEntry(_ entry: Entry) {
+        createEntryUseCase.execute(request: entry) { result in
+            switch result {
+            case .success(_):
+                break
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }

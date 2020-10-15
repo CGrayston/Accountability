@@ -11,27 +11,28 @@ import SwiftUI
 struct EntryEditorView: View {
     @ObservedObject var viewModel: EntryEditorViewModel
     
-    var onCommit: (Entry) -> () = { _ in }
-        
     var body: some View {
-        VStack {
-            TextField("Enter title", text: $viewModel.entry.title, onCommit: {
-                self.onCommit(self.viewModel.entry)
-            })
+        VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 8) {
+            TextField("Enter title", text: $viewModel.entry.title)
+                .font(.title)
             
-            TextField("Entry body", text: $viewModel.entry.body, onCommit: {
-                self.onCommit(self.viewModel.entry)
-            })
+            if #available(iOS 14.0, *) {
+                TextEditor(text: $viewModel.entry.body)
+            } else {
+                // TODO: - Implement Custom View for iOS 13 and below
+                TextField("TODO: Make custom textView", text: $viewModel.entry.body)
+            }
         }
-        
         .navigationBarTitle("\(viewModel.entry.createdTime.fullTimeNoneFormatter())", displayMode: .inline)
-        .font(.body)
+        .padding(.horizontal)
     }
 }
 
 struct EntryEditorView_Previews: PreviewProvider {
     static var previews: some View {
         EntryEditorView(viewModel: EntryEditorViewModel(entry: mockEntry))
+            .previewDevice("iPhone 11")
+//            .environmentObject(EntryEditorViewModel(entry: mockEntry))
     }
 }
 

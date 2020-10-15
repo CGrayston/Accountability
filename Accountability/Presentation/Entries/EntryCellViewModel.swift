@@ -11,7 +11,6 @@ import Combine
 
 // Observe any changes we make to properties in this view models
 class EntryCellViewModel: ObservableObject, Identifiable {
-    @Published var entryRepository = EntryRepository()
     
     @Published var entry: Entry
     
@@ -22,27 +21,11 @@ class EntryCellViewModel: ObservableObject, Identifiable {
     init(entry: Entry) {
         self.entry = entry
         
-//        $entry
-//            .map { entry in
-//                entry.completed ? "checkmark.circle.fill" : "circle"
-//        }
-//        .assign(to: \.completionStateIconName, on: self)
-//        .store(in: &cancellables)
-        
         $entry
             .compactMap { entry in
                 entry.id
         }
         .assign(to: \.id, on: self)
         .store(in: &cancellables)
-        
-//        $entry
-//            .dropFirst()
-//            // Only send updates 0.8 seconds after you are done typing
-//            .debounce(for: 0.8, scheduler: RunLoop.main)
-//            .sink { entry in
-//                self.entryRepository.updateEntry(entry)
-//        }
-//        .store(in: &cancellables)
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 import SwiftUI
 import Firebase
+import GoogleSignIn
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -33,7 +34,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 window.rootViewController = UIHostingController(rootView: TabBarView())
             } else {
                 // No user is signed in.
-                window.rootViewController = UIHostingController(rootView: SignInView())
+//                window.rootViewController = UIHostingController(rootView: SignInView())
+                window.rootViewController = SignInViewController()
             }
         }
         

@@ -11,14 +11,13 @@ import Combine
 
 // Observe any changes we make to properties in this view models
 class TaskCellViewModel: ObservableObject, Identifiable {
-    @Published var taskRepository = TaskRepository()
     
     @Published var task: Task
-    
-    var id = ""
     @Published var completionStateIconName = ""
     
+    var id = ""
     private var cancellables = Set<AnyCancellable>()
+    private let updateTaskUseCase = UseCaseProvider().updateTaskUseCase
     
     init(task: Task) {
         self.task = task
@@ -40,8 +39,15 @@ class TaskCellViewModel: ObservableObject, Identifiable {
         $task
             .dropFirst()
             .debounce(for: 0.8, scheduler: RunLoop.main)
-            .sink { task in
-                self.taskRepository.updateTask(task)
+            .sink { [weak self] task in
+                self?.updateTaskUseCase.execute(request: task) { result in
+                    switch result {
+                    case .success(_):
+                        break
+                    case .failure(let error):
+                        print("Error updating task: \(error.localizedDescription)")
+                    }
+                }
         }
         .store(in: &cancellables)
     }

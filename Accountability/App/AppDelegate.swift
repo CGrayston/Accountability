@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
+        
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
+        
         return true
     }
 
@@ -38,3 +43,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// MARK: - Google Sign In
+
+extension AppDelegate: GIDSignInDelegate {
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+    -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        if let error = error {
+            print("Error: \(error.localizedDescription)")
+            return
+        }
+        
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        
+        Auth.auth().signIn(with: credential) { (result, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let currentUser = Auth.auth().currentUser else { return }
+            
+            if result?.additionalUserInfo?.isNewUser == true {
+                let createUserUseCase = UseCaseProvider().createUserUseCase
+                let displayName = currentUser.displayName ?? "JohnDoe"
+                var username = displayName.replacingOccurrences(of: " ", with: "")
+                username += String(Int.random(in: 1_000..<10_000))
+                
+                let user = User(id: currentUser.uid, name: currentUser.displayName ?? "John Doe", username: username, email: currentUser.email ?? "johndoe@gmail.com", dateCreated: Date(), userId: currentUser.uid)
+                
+                createUserUseCase.execute(request: user) { result in
+                    switch result {
+                    case .success(_):
+                        break
+                    case .failure(let error):
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            }
+
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
+}

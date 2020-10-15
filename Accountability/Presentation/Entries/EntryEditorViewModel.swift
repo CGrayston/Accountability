@@ -10,30 +10,42 @@ import Foundation
 import Combine
 
 class EntryEditorViewModel: ObservableObject, Identifiable {
-    @Published var entryRepository = EntryRepository()
     
     @Published var entry: Entry
     
     var id = ""
     
+    private let updateEntryUseCase = UseCaseProvider().updateEntryUseCase
+
     private var cancellables = Set<AnyCancellable>()
     
     init(entry: Entry) {
         self.entry = entry
         
         $entry
-            .compactMap { task in
-                task.id
+            .compactMap { entry in
+                entry.id
         }
         .assign(to: \.id, on: self)
         .store(in: &cancellables)
         
         $entry
             .dropFirst()
-            .debounce(for: 0.8, scheduler: RunLoop.main)
-            .sink { entry in
-                self.entryRepository.updateEntry(entry)
+            .debounce(for: 2, scheduler: RunLoop.main)
+            .sink { [weak self] entry in
+                self?.updateEntry(entry: entry)
         }
         .store(in: &cancellables)
+    }
+    
+    private func updateEntry(entry: Entry) {
+        updateEntryUseCase.execute(request: entry) { result in
+            switch result {
+            case .success(_):
+                break
+            case .failure(let error):
+                print("Error updating entry: \(error.localizedDescription)")
+            }
+        }
     }
 }
