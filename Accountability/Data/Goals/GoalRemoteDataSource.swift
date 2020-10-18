@@ -17,9 +17,13 @@ protocol GoalDataSource {
     
     func addGoal(goal: Goal, completion: @escaping (Result<Void, Error>) -> Void)
     
-    func updateGoal(goal: Goal, completion: @escaping (Result<Void, Error>) -> Void)
+    func updateGoal(requestModel: UpdateGoalRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
     
     func deleteGoal(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func incrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class GoalRemoteDataSource: GoalDataSource {
@@ -75,17 +79,18 @@ final class GoalRemoteDataSource: GoalDataSource {
         }
     }
     
-    func updateGoal(goal: Goal, completion: @escaping (Result<Void, Error>) -> Void) {
-        if let goalID = goal.id {
-            do {
-                try goalsReference.document(goalID).setData(from: goal)
-                
+    func updateGoal(requestModel: UpdateGoalRequestModel, completion: @escaping (Result<Void, Error>) -> Void) {
+        let goalId = requestModel.goalId
+        goalsReference.document(goalId).updateData([
+            "title": requestModel.newTitle,
+            "timesPerWeek": requestModel.timesPerWeek,
+        ], completion: { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
                 completion(.success(()))
             }
-            catch {
-                completion(.failure(error))
-            }
-        }
+        })
     }
     
     func deleteGoal(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -96,5 +101,29 @@ final class GoalRemoteDataSource: GoalDataSource {
                 completion(.success(()))
             }
         }
+    }
+    
+    func incrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        goalsReference.document(goalId).updateData([
+            "timesThisWeek": FieldValue.increment(Int64(1))
+        ], completion: { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        })
+    }
+    
+    func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        goalsReference.document(goalId).updateData([
+            "timesThisWeek": FieldValue.increment(Int64(-1))
+        ], completion: { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        })
     }
 }

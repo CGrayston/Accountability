@@ -16,7 +16,9 @@ class GoalProgressViewModel: ObservableObject, Identifiable {
     
     var id = ""
     private var cancellables = Set<AnyCancellable>()
+    
     private let updateGoalUseCase = UseCaseProvider().updateGoalUseCase
+    private let incrementGoalTimesThisWeekUseCase = UseCaseProvider().incrementGoalTimesThisWeekUseCase
         
     init(goal: Goal) {
         self.goal = goal
@@ -28,28 +30,32 @@ class GoalProgressViewModel: ObservableObject, Identifiable {
         .assign(to: \.id, on: self)
         .store(in: &cancellables)
         
-        $goal
-            .dropFirst()
-            .debounce(for: 0.3, scheduler: RunLoop.main)
-            .sink { [weak self] goal in
-                self?.updateGoalUseCase.execute(request: goal) { result in
-                    switch result {
-                    case .success(_):
-                        break
-                    case .failure(let error):
-                        print("Error updating goal: \(error.localizedDescription)")
-                    }
-                }
+        // TODO: Remove?
+//        $goal
+//            .dropFirst()
+//            .debounce(for: 0.3, scheduler: RunLoop.main)
+//            .sink { [weak self] goal in
+//                self?.updateGoalUseCase.execute(request: goal) { result in
+//                    switch result {
+//                    case .success(_):
+//                        break
+//                    case .failure(let error):
+//                        print("Error updating goal: \(error.localizedDescription)")
+//                    }
+//                }
+//        }
+//        .store(in: &cancellables)
+    }
+    
+    func incrementGoalTimesThisWeek(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let goalId = goal.id else {
+            completion(.failure(InputError.nilGoalId))
+            return
         }
-        .store(in: &cancellables)
-    }
-    
-    func increment() {
-        goal.timesThisWeek += 1
-    }
-    
-    func reset() {
-        goal.timesThisWeek = 0
+        
+        incrementGoalTimesThisWeekUseCase.execute(request: goalId) { result in
+            completion(result)
+        }
     }
         
     func progress() -> Double {

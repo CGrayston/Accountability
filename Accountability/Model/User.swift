@@ -17,4 +17,5 @@ struct User: Identifiable, Codable {
     var email: String
     var dateCreated: Date
     var userId: String
+    var goalsTemplate: [String: Int]?
 }

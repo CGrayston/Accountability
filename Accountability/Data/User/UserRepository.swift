@@ -17,6 +17,18 @@ protocol UserRepository {
     func updateUser(user: User, completion: @escaping (Result<Void, Error>) -> Void)
     
     func logOutUser(completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func addGoalTemplateEntry(request: GoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func updateGoalTemplateEntry(requestModel: UpdateGoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
+
+    func deleteGoalTemplateEntry(goalTitle: String, completion: @escaping (Result<Void, Error>) -> Void)
+
+    func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func isValidNewGoalTitle(newTitle: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func isValidUpdatedGoalTitle(requestModel: UpdateGoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class UserDataRepository: UserRepository {
@@ -26,6 +38,8 @@ final class UserDataRepository: UserRepository {
     init(remoteDataSource: UserDataSource) {
         self.remoteDataSource = remoteDataSource
     }
+    
+    // MARK: - User CRUD Methods
     
     func fetchUser(completion: @escaping (Result<User, Error>) -> Void) {
         remoteDataSource.fetchUser { result in
@@ -47,6 +61,46 @@ final class UserDataRepository: UserRepository {
     
     func logOutUser(completion: @escaping (Result<Void, Error>) -> Void) {
         remoteDataSource.logOutUser { result in
+            completion(result)
+        }
+    }
+    
+    // MARK: - Goal Template CRUD Methods
+    
+    func addGoalTemplateEntry(request: GoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.addGoalTemplateEntry(request: request) { result in
+            completion(result)
+        }
+    }
+    
+    func updateGoalTemplateEntry(requestModel: UpdateGoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.updateGoalTemplateEntry(requestModel: requestModel) { result in
+            completion(result)
+        }
+    }
+    
+    func deleteGoalTemplateEntry(goalTitle: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.deleteGoalTemplateEntry(goalTitle: goalTitle) { result in
+            completion(result)
+        }
+    }
+    
+    // MARK: - Username/Title Verification Methods
+    
+    func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.isUniqueUserName(username: username) { result in
+            completion(result)
+        }
+    }
+    
+    func isValidNewGoalTitle(newTitle: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.isValidNewGoalTitle(newTitle: newTitle) { result in
+            completion(result)
+        }
+    }
+
+    func isValidUpdatedGoalTitle(requestModel: UpdateGoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.isValidUpdatedGoalTitle(requestModel: requestModel) { result in
             completion(result)
         }
     }

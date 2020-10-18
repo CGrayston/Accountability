@@ -67,6 +67,11 @@
 		FFCEE5AB24FAE9F900504D0C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCEE5AA24FAE9F900504D0C /* User.swift */; };
 		FFCEE5AE24FAECAD00504D0C /* CreateUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCEE5AD24FAECAD00504D0C /* CreateUserUseCase.swift */; };
 		FFCEE5B124FAEF3800504D0C /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCEE5B024FAEF3800504D0C /* UserRepository.swift */; };
+		FFD760F8253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD760F7253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift */; };
+		FFD76117253C048A004DE189 /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD76116253C048A004DE189 /* GoalProgressView.swift */; };
+		FFD7611C253C155F004DE189 /* DecrementGoalTimesThisWeekUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7611B253C155F004DE189 /* DecrementGoalTimesThisWeekUseCase.swift */; };
+		FFD7615E253CF3C9004DE189 /* UpdateGoalRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7615D253CF3C9004DE189 /* UpdateGoalRequestModel.swift */; };
+		FFD92B2F2539641300DFE11E /* GoalTemplateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD92B2E2539641300DFE11E /* GoalTemplateRequestModel.swift */; };
 		FFEACC5424DBA475002346E1 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEACC5324DBA475002346E1 /* TaskListViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -136,6 +141,11 @@
 		FFCEE5AA24FAE9F900504D0C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FFCEE5AD24FAECAD00504D0C /* CreateUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserUseCase.swift; sourceTree = "<group>"; };
 		FFCEE5B024FAEF3800504D0C /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		FFD760F7253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementGoalTimesThisWeekUseCase.swift; sourceTree = "<group>"; };
+		FFD76116253C048A004DE189 /* GoalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressView.swift; sourceTree = "<group>"; };
+		FFD7611B253C155F004DE189 /* DecrementGoalTimesThisWeekUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecrementGoalTimesThisWeekUseCase.swift; sourceTree = "<group>"; };
+		FFD7615D253CF3C9004DE189 /* UpdateGoalRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalRequestModel.swift; sourceTree = "<group>"; };
+		FFD92B2E2539641300DFE11E /* GoalTemplateRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTemplateRequestModel.swift; sourceTree = "<group>"; };
 		FFEACC5324DBA475002346E1 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,10 +200,8 @@
 		FF00460324F2FF830047B232 /* Goals */ = {
 			isa = PBXGroup;
 			children = (
-				FF00460624F300190047B232 /* FetchAllGoalsUseCase.swift */,
-				FF00460824F300720047B232 /* UpdateGoalUseCase.swift */,
-				FFB8AFF7252ED36900E6F079 /* AddGoalUseCase.swift */,
-				FF807A1D25354B37005D424B /* DeleteGoalUseCase.swift */,
+				FFD7615A253CF3AF004DE189 /* UseCase */,
+				FFD76160253CF3D4004DE189 /* Model */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -296,7 +304,7 @@
 			children = (
 				FF271C5D24F2150D000AF557 /* GoalCollectionView.swift */,
 				FFB7FCB625295A2500640651 /* GoalEditorView.swift */,
-				FF69C502253772A90023F92E /* PersonalGoalsProgressBar.swift */,
+				FFD76119253C0520004DE189 /* View */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -494,10 +502,8 @@
 		FFCEE5AC24FAEC8100504D0C /* User */ = {
 			isa = PBXGroup;
 			children = (
-				FF8ACD4624FB01EB003EEA1C /* FetchUserUseCase.swift */,
-				FFCEE5AD24FAECAD00504D0C /* CreateUserUseCase.swift */,
-				FFA3E32024FB4EEA00145859 /* UpdateUserUseCase.swift */,
-				FF8BDCE52505E822006F197F /* LogOutUserUseCase.swift */,
+				FFD92B2C253963E400DFE11E /* UseCase */,
+				FFD92B312539645B00DFE11E /* Model */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -509,6 +515,55 @@
 				FF8ACD4324FAF1E9003EEA1C /* UserRemoteDataSource.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		FFD76119253C0520004DE189 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FF69C502253772A90023F92E /* PersonalGoalsProgressBar.swift */,
+				FFD76116253C048A004DE189 /* GoalProgressView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FFD7615A253CF3AF004DE189 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				FF00460624F300190047B232 /* FetchAllGoalsUseCase.swift */,
+				FF00460824F300720047B232 /* UpdateGoalUseCase.swift */,
+				FFB8AFF7252ED36900E6F079 /* AddGoalUseCase.swift */,
+				FF807A1D25354B37005D424B /* DeleteGoalUseCase.swift */,
+				FFD760F7253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift */,
+				FFD7611B253C155F004DE189 /* DecrementGoalTimesThisWeekUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		FFD76160253CF3D4004DE189 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FFD7615D253CF3C9004DE189 /* UpdateGoalRequestModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FFD92B2C253963E400DFE11E /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				FF8ACD4624FB01EB003EEA1C /* FetchUserUseCase.swift */,
+				FFCEE5AD24FAECAD00504D0C /* CreateUserUseCase.swift */,
+				FFA3E32024FB4EEA00145859 /* UpdateUserUseCase.swift */,
+				FF8BDCE52505E822006F197F /* LogOutUserUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		FFD92B312539645B00DFE11E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FFD92B2E2539641300DFE11E /* GoalTemplateRequestModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -646,6 +701,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF0045FB24F2E1160047B232 /* CreateEntryUseCase.swift in Sources */,
+				FFD92B2F2539641300DFE11E /* GoalTemplateRequestModel.swift in Sources */,
+				FFD76117253C048A004DE189 /* GoalProgressView.swift in Sources */,
 				FF2192D024E6370100D8A316 /* Entry.swift in Sources */,
 				FFB7FCB725295A2500640651 /* GoalEditorView.swift in Sources */,
 				FF8DA0DC24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift in Sources */,
@@ -668,6 +725,7 @@
 				FF8ACD4424FAF1E9003EEA1C /* UserRemoteDataSource.swift in Sources */,
 				FF8ACD4724FB01EB003EEA1C /* FetchUserUseCase.swift in Sources */,
 				FFBFB13624EE2DCD00E984DA /* UpdateEntryUseCase.swift in Sources */,
+				FFD760F8253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift in Sources */,
 				FF0045F824F23F4E0047B232 /* Goal.swift in Sources */,
 				FF5BAEEE24D92563004B2DE9 /* SceneDelegate.swift in Sources */,
 				FF5BAEF024D92563004B2DE9 /* TaskListView.swift in Sources */,
@@ -678,6 +736,7 @@
 				FFA3E32424FB5D4200145859 /* SettingsViewModel.swift in Sources */,
 				FFEACC5424DBA475002346E1 /* TaskListViewModel.swift in Sources */,
 				FF76FC1624F1E03300A8E6B5 /* SignInWithGoogleButton.swift in Sources */,
+				FFD7611C253C155F004DE189 /* DecrementGoalTimesThisWeekUseCase.swift in Sources */,
 				FF00460224F2FE830047B232 /* GoalCollectionViewModel.swift in Sources */,
 				FF9CC65024DBCE8F0065C9CF /* SignInWithAppleButton.swift in Sources */,
 				FF9CC64E24DBB98F0065C9CF /* TaskRepository.swift in Sources */,
@@ -692,6 +751,7 @@
 				FFCEE5B124FAEF3800504D0C /* UserRepository.swift in Sources */,
 				FF2192D924E643C600D8A316 /* EntryListViewModel.swift in Sources */,
 				FFCEE5AE24FAECAD00504D0C /* CreateUserUseCase.swift in Sources */,
+				FFD7615E253CF3C9004DE189 /* UpdateGoalRequestModel.swift in Sources */,
 				FFBFB11B24EBA8F100E984DA /* UseCaseProvider.swift in Sources */,
 				FFBFB10B24EB95B800E984DA /* UseCase.swift in Sources */,
 				FFBFB13A24EE4B4500E984DA /* FetchAllTasksUseCase.swift in Sources */,

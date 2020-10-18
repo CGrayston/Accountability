@@ -19,17 +19,30 @@ class UseCaseProvider {
     
     lazy var addGoalUseCase: AddGoalUseCase = {
         let goalRepository = RepositoryProvider().goalRepository
-        return AddGoalUseCase(goalRepository: goalRepository)
+        let userRepository = RepositoryProvider().userRepository
+        return AddGoalUseCase(goalRepository: goalRepository, userRepository: userRepository)
     }()
     
     lazy var updateGoalUseCase: UpdateGoalUseCase = {
         let goalRepository = RepositoryProvider().goalRepository
-        return UpdateGoalUseCase(goalRepository: goalRepository)
+        let userRepository = RepositoryProvider().userRepository
+        return UpdateGoalUseCase(goalRepository: goalRepository, userRepository: userRepository)
     }()
     
     lazy var deleteGoalUseCase: DeleteGoalUseCase = {
         let goalRepository = RepositoryProvider().goalRepository
-        return DeleteGoalUseCase(goalRepository: goalRepository)
+        let userRepository = RepositoryProvider().userRepository
+        return DeleteGoalUseCase(goalRepository: goalRepository, userRepository: userRepository)
+    }()
+    
+    lazy var incrementGoalTimesThisWeekUseCase: IncrementGoalTimesThisWeekUseCase = {
+        let goalRepository = RepositoryProvider().goalRepository
+        return IncrementGoalTimesThisWeekUseCase(goalRepository: goalRepository)
+    }()
+    
+    lazy var decrementGoalTimesThisWeekUseCase: DecrementGoalTimesThisWeekUseCase = {
+        let goalRepository = RepositoryProvider().goalRepository
+        return DecrementGoalTimesThisWeekUseCase(goalRepository: goalRepository)
     }()
     
     // MARK: - Task

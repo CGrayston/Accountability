@@ -12,10 +12,9 @@ import Combine
 class GoalCollectionViewModel: ObservableObject {
 
     @Published var goalProgressViewModels = [GoalProgressViewModel]()
-    @Published var goals = [Goal]()
+    @Published private var goals = [Goal]()
 
     private let fetchAllGoalsUseCase = UseCaseProvider().fetchAllGoalsUseCase
-    //private let addGoalUseCase = UseCaseProvider().addGoalUseCase
     private var cancellables = Set<AnyCancellable>()
     
     var totalProgress: Double {
@@ -23,6 +22,10 @@ class GoalCollectionViewModel: ObservableObject {
         let totalTimesPerWeek = goals.map { $0.timesPerWeek }.reduce(0, +)
         
         return totalTimesPerWeek == 0 ? 0 : Double(totalTimesThisWeek)/Double(totalTimesPerWeek)
+    }
+    
+    var hasGoals: Bool {
+        return goals.count > 0
     }
     
     init() {
@@ -42,8 +45,7 @@ class GoalCollectionViewModel: ObservableObject {
         .store(in: &self.cancellables)
     }
     
-    fileprivate func fetchAllGoals() {
-        
+    private func fetchAllGoals() {
         fetchAllGoalsUseCase.execute { [weak self] result in
             guard let self = self else { return }
             

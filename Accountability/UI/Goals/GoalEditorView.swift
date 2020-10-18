@@ -8,12 +8,21 @@
 
 import SwiftUI
 
+enum GoalEditorActiveAlert {
+    case blankTitle
+    case duplicatePassword
+    case deletingGoal
+    case decrementTimesThisWeek
+    case generic
+}
+
 struct GoalEditorView: View {
     
     @ObservedObject var viewModel: GoalEditorViewModel
     
     @State private var showingAlert = false
-    
+    @State private var activeAlert: GoalEditorActiveAlert = .generic
+
     @Environment(\.presentationMode) var presentationMode
     
     var isEditingMode: Bool
@@ -32,10 +41,6 @@ struct GoalEditorView: View {
                                 TextField("New Goal Title", text: $viewModel.goal.title)
                             }
                             
-//                            Section(header: Text("Title").font(.body)) {
-//                                TextField("New Goal Title", text: $viewModel.goal.title)
-//                            }
-                            
                             Section(header: Text("Times Per Week").font(.body)) {
                                 let timesThisWeek = viewModel.goal.timesThisWeek
                                 let timesPerWeek = $viewModel.goal.timesPerWeek
@@ -50,29 +55,26 @@ struct GoalEditorView: View {
                                 
                                 if isEditingMode {
                                     Button(action: {
-                                        if timesThisWeek > 0 {
-                                            viewModel.goal.timesThisWeek -= 1
-                                        } else {
+                                        guard timesThisWeek > 0 else {
                                             let generator = UINotificationFeedbackGenerator()
                                             generator.notificationOccurred(.error)
+                                            return
                                         }
+                                        
+                                        activeAlert = .decrementTimesThisWeek
+                                        showingAlert = true
                                     }) {
                                         Label("Decrement", systemImage: "arrow.uturn.backward")
                                     }
+                                    .disabled(timesThisWeek == 0)
                                 }
                             }
                             
                             if isEditingMode {
                                 Section(header: Text("Delete").font(.body)) {
                                     Button(action: {
-                                        viewModel.deleteCurrentGoal { result in
-                                            switch result {
-                                            case .success:
-                                                presentationMode.wrappedValue.dismiss()
-                                            case .failure(_):
-                                                showingAlert = true
-                                            }
-                                        }
+                                        activeAlert = .deletingGoal
+                                        showingAlert = true
                                     }) {
                                         Label("Delete Goal", systemImage: "trash")
                                     }
@@ -82,14 +84,21 @@ struct GoalEditorView: View {
                         Spacer()
                     }
                     
-                    // Save Button
+                    // Save/Update Button
                     Button(action: {
                         if isEditingMode {
                             viewModel.updateCurrentGoal { result in
                                 switch result {
                                 case .success:
                                     presentationMode.wrappedValue.dismiss()
-                                case .failure(_):
+                                case .failure(let error):
+                                    if case UserDataError.duplicateGoalTitle = error {
+                                        activeAlert = .duplicatePassword
+                                    } else if case InputError.blankTitle = error {
+                                        activeAlert = .blankTitle
+                                    } else {
+                                        activeAlert = .generic
+                                    }
                                     showingAlert = true
                                 }
                             }
@@ -98,13 +107,20 @@ struct GoalEditorView: View {
                                 switch result {
                                 case .success:
                                     presentationMode.wrappedValue.dismiss()
-                                case .failure(_):
+                                case .failure(let error):
+                                    if case UserDataError.duplicateGoalTitle = error {
+                                        activeAlert = .duplicatePassword
+                                    } else if case InputError.blankTitle = error {
+                                        activeAlert = .blankTitle
+                                    } else {
+                                        activeAlert = .generic
+                                    }
                                     showingAlert = true
                                 }
                             }
                         }
                     }) {
-                        Text("Save")
+                        Text(isEditingMode ? "Update" : "Save")
                             .fontWeight(.heavy)
                             .frame(width: geometry.size.width * 0.8, height: 30, alignment: .center)
                             .padding(8)
@@ -113,10 +129,80 @@ struct GoalEditorView: View {
                             .cornerRadius(8)
                     }
                     .alert(isPresented: $showingAlert) {
-                        Alert(title: Text("\(viewModel.alertTitle ?? "Error")"), message: Text("\(viewModel.alertMessage ?? "Something went wrong")"), dismissButton: .default(Text("Okay")))
+                        var title = ""
+                        var message = ""
+                        var cancelButton: Alert.Button?
+                        var confirmButton: Alert.Button?
+                        
+                        switch activeAlert {
+                        case .blankTitle:
+                            title = "Blank Title"
+                            message = "Please enter a title for your goal."
+                        case .duplicatePassword:
+                            title = "Duplicate Goal Title"
+                            message = "Title is already in use. Please enter a unique title for your goal."
+                        case .generic:
+                            title = "Oops!"
+                            message = "Something went wrong, please try again."
+                        case .deletingGoal:
+                            title = "Delete Goal?"
+                            message = "Deleting this goal is permanent and can't be undone. Are you sure you want to continue?"
+                            
+                            cancelButton = Alert.Button.default(Text("Cancel"))
+                            confirmButton = Alert.Button.destructive(Text("Delete")) {
+                                deleteCurrentGoal()
+                            }
+                        case .decrementTimesThisWeek:
+                            title = "Decrement Progress?"
+                            message = "Are you sure you want to decrement your progress this week?"
+                            
+                            cancelButton = Alert.Button.default(Text("Cancel"))
+                            confirmButton = Alert.Button.destructive(Text("Decrement")) {
+                                decrementGoalTimesThisWeek()
+                            }
+                        }
+                        
+                        let alertTitle = Text(title)
+                        let alertMessage = Text(message)
+                        
+                        if let cancelButton = cancelButton,
+                           let confirmButton = confirmButton {
+                            return Alert(title: alertTitle, message: alertMessage, primaryButton: cancelButton, secondaryButton: confirmButton)
+                        } else {
+                            return Alert(title: alertTitle, message: alertMessage)
+                        }
                     }
                 }
                 .navigationBarTitle(isEditingMode ? "Edit Goal" : "Add New Goal", displayMode: .inline)
+            }
+        }
+    }
+    
+    private func decrementGoalTimesThisWeek() {
+        let generator = UINotificationFeedbackGenerator()
+
+        viewModel.decrementGoalTimesThisWeek { result in
+            switch result {
+            case .success:
+                generator.notificationOccurred(.success)
+            case .failure:
+                // TODO: Figure out how to send back to back alerts if there was another error
+                generator.notificationOccurred(.warning)
+                activeAlert = .generic
+                showingAlert = true
+            }
+        }
+    }
+    
+    private func deleteCurrentGoal() {
+        viewModel.deleteCurrentGoal { result in
+            switch result {
+            case .success:
+                presentationMode.wrappedValue.dismiss()
+            case .failure(let error):
+                // TODO: Figure out how to send back to back alerts if there was another error
+                print("Error trying to delete goal: \(error.localizedDescription)")
+                return
             }
         }
     }

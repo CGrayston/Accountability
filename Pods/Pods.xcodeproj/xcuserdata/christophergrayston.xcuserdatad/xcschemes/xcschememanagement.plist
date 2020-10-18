@@ -103,7 +103,7 @@
 		<key>GTMAppAuth.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>27</integer>
+			<integer>24</integer>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>

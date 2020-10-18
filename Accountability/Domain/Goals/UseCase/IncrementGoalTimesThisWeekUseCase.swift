@@ -1,14 +1,14 @@
 //
-//  DeleteGoalUseCase.swift
+//  IncrementGoalTimesThisWeekUseCase.swift
 //  Accountability
 //
-//  Created by Christopher Grayston on 10/12/20.
+//  Created by Christopher Grayston on 10/17/20.
 //  Copyright © 2020 Christopher Grayston. All rights reserved.
 //
 
 import Foundation
 
-class DeleteGoalUseCase: VoidResponseUseCase {
+class IncrementGoalTimesThisWeekUseCase: VoidResponseUseCase {
     
     typealias Request = String
     
@@ -19,7 +19,7 @@ class DeleteGoalUseCase: VoidResponseUseCase {
     }
     
     func execute(request: Request, completion: @escaping (Result<Void, Error>) -> Void) {
-        goalRepository.deleteGoal(goalId: request) { result in
+        goalRepository.incrementGoalTimesThisWeek(goalId: request) { result in
             completion(result)
         }
     }

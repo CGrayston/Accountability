@@ -14,9 +14,13 @@ protocol GoalRepository {
     
     func addGoal(goal: Goal, completion: @escaping (Result<Void, Error>) -> Void)
     
-    func updateGoal(goal: Goal, completion: @escaping (Result<Void, Error>) -> Void)
+    func updateGoal(requestModel: UpdateGoalRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
     
     func deleteGoal(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func incrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class GoalDataRepository: GoalRepository {
@@ -39,14 +43,26 @@ final class GoalDataRepository: GoalRepository {
         }
     }
     
-    func updateGoal(goal: Goal, completion: @escaping (Result<Void, Error>) -> Void) {
-        remoteDataSource.updateGoal(goal: goal) { result in
+    func updateGoal(requestModel: UpdateGoalRequestModel, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.updateGoal(requestModel: requestModel) { result in
             completion(result)
         }
     }
     
     func deleteGoal(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         remoteDataSource.deleteGoal(goalId: goalId) { result in
+            completion(result)
+        }
+    }
+    
+    func incrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.incrementGoalTimesThisWeek(goalId: goalId) { result in
+            completion(result)
+        }
+    }
+    
+    func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.decrementGoalTimesThisWeek(goalId: goalId) { result in
             completion(result)
         }
     }

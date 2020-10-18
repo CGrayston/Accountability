@@ -76,7 +76,7 @@ extension AppDelegate: GIDSignInDelegate {
                 var username = displayName.replacingOccurrences(of: " ", with: "")
                 username += String(Int.random(in: 1_000..<10_000))
                 
-                let user = User(id: currentUser.uid, name: currentUser.displayName ?? "John Doe", username: username, email: currentUser.email ?? "johndoe@gmail.com", dateCreated: Date(), userId: currentUser.uid)
+                let user = User(id: currentUser.uid, name: currentUser.displayName ?? "John Doe", username: username, email: currentUser.email ?? "johndoe@gmail.com", dateCreated: Date(), userId: currentUser.uid, goalsTemplate: nil)
                 
                 createUserUseCase.execute(request: user) { result in
                     switch result {
@@ -87,7 +87,6 @@ extension AppDelegate: GIDSignInDelegate {
                     }
                 }
             }
-
         }
     }
     

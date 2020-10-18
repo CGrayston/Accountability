@@ -41,7 +41,8 @@ class SettingsViewModel: ObservableObject {
                 .store(in: &self.cancellables)
                 
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                //fatalError(error.localizedDescription)
+                print(error.localizedDescription)
             }
         }
     }
