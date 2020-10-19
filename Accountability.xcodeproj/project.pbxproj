@@ -21,6 +21,7 @@
 		FF2192DF24E6457D00D8A316 /* EntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2192DE24E6457D00D8A316 /* EntryRepository.swift */; };
 		FF2192E124E64C4000D8A316 /* EntryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2192E024E64C4000D8A316 /* EntryCellViewModel.swift */; };
 		FF271C5E24F2150D000AF557 /* GoalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF271C5D24F2150D000AF557 /* GoalCollectionView.swift */; };
+		FF346E18253D4D7C00907D8B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF346E17253D4D7C00907D8B /* SignUpViewController.swift */; };
 		FF5BAEEC24D92563004B2DE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BAEEB24D92563004B2DE9 /* AppDelegate.swift */; };
 		FF5BAEEE24D92563004B2DE9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BAEED24D92563004B2DE9 /* SceneDelegate.swift */; };
 		FF5BAEF024D92563004B2DE9 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BAEEF24D92563004B2DE9 /* TaskListView.swift */; };
@@ -93,6 +94,7 @@
 		FF2192DE24E6457D00D8A316 /* EntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRepository.swift; sourceTree = "<group>"; };
 		FF2192E024E64C4000D8A316 /* EntryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryCellViewModel.swift; sourceTree = "<group>"; };
 		FF271C5D24F2150D000AF557 /* GoalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionView.swift; sourceTree = "<group>"; };
+		FF346E17253D4D7C00907D8B /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FF5BAEE824D92563004B2DE9 /* Accountability.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Accountability.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF5BAEEB24D92563004B2DE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF5BAEED24D92563004B2DE9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				FF9CC64F24DBCE8F0065C9CF /* SignInWithAppleButton.swift */,
 				FF76FC1524F1E03300A8E6B5 /* SignInWithGoogleButton.swift */,
 				FF76FC1924F1EE5F00A8E6B5 /* SignInViewController.swift */,
+				FF346E17253D4D7C00907D8B /* SignUpViewController.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				FF5BAF0024D9258C004B2DE9 /* Task.swift in Sources */,
 				FFBFB10F24EB977700E984DA /* FetchAllEntriesUseCase.swift in Sources */,
 				FFB8AFF5252EA94000E6F079 /* Color+Additions.swift in Sources */,
+				FF346E18253D4D7C00907D8B /* SignUpViewController.swift in Sources */,
 				FFB8AFF8252ED36900E6F079 /* AddGoalUseCase.swift in Sources */,
 				FF271C5E24F2150D000AF557 /* GoalCollectionView.swift in Sources */,
 				FFBFB11924EBA69F00E984DA /* DataSourceProvider.swift in Sources */,
