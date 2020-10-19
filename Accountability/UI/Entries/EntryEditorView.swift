@@ -30,12 +30,10 @@ struct EntryEditorView: View {
 
 struct EntryEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        EntryEditorView(viewModel: EntryEditorViewModel(entry: mockEntry))
+        let mockEntry = Entry(title: "First Entry Title", body: "First entry body", createdTime: Date(), userId: "1234")
+        let viewModel = EntryEditorViewModel(entry: mockEntry)
+        
+        EntryEditorView(viewModel: viewModel)
             .previewDevice("iPhone 11")
-//            .environmentObject(EntryEditorViewModel(entry: mockEntry))
     }
 }
-
-#if DEBUG
-let mockEntry = Entry(title: "First Entry Title", body: "First entry body", createdTime: Date(), userId: "1234")
-#endif
