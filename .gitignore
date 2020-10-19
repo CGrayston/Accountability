@@ -21,6 +21,10 @@ DerivedData/
 !default.perspectivev3
 xcuserdata/
 
+## Chris Added
+*xcworkspace/xcuserdata/*
+xcdebugger/Breakpoints_v2
+
 ## File Typesus
 *.moved-aside
 *.xcuserstate
