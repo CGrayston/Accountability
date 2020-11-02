@@ -12,9 +12,18 @@ class UseCaseProvider {
 
     // MARK: - Goal
     
-    lazy var fetchAllGoalsUseCase: FetchAllGoalsUseCase = {
+    lazy var fetchAllGoalsUseCase: FetchGoalsThisWeekUseCase = {
         let goalRepository = RepositoryProvider().goalRepository
-        return FetchAllGoalsUseCase(goalRepository: goalRepository)
+        let userRepository = RepositoryProvider().userRepository
+        let errorMapper = GoalsTemplateToErrorMapper()
+        return FetchGoalsThisWeekUseCase(goalRepository: goalRepository, userRepository: userRepository, goalsTemplateToErrorMapper: errorMapper)
+    }()
+    
+    lazy var createThisWeeksGoalsFromTemplate: CreateThisWeeksGoalsFromTemplate = {
+        let goalRepository = RepositoryProvider().goalRepository
+        let userRepository = RepositoryProvider().userRepository
+        let errorMapper = GoalsTemplateToErrorMapper()
+        return CreateThisWeeksGoalsFromTemplate(goalRepository: goalRepository, userRepository: userRepository)
     }()
     
     lazy var addGoalUseCase: AddGoalUseCase = {
@@ -99,5 +108,12 @@ class UseCaseProvider {
     lazy var logOutUserUseCase: LogOutUserUseCase = {
         let userRepository = RepositoryProvider().userRepository
         return LogOutUserUseCase(userRepository: userRepository)
+    }()
+    
+    // MARK: - UserTemplate
+    
+    lazy var fetchTemplateStatusUseCase: FetchTemplateStatusUseCase = {
+        let userRepository = RepositoryProvider().userRepository
+        return FetchTemplateStatusUseCase(userRepository: userRepository)
     }()
 }

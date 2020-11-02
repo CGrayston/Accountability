@@ -27,6 +27,8 @@ struct GoalEditorView: View {
     
     var isEditingMode: Bool
 
+
+    
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
@@ -37,10 +39,12 @@ struct GoalEditorView: View {
                             .padding(.top)
                         
                         List {
+                            // Title
                             Section(header: Text("Title").font(.body)) {
                                 TextField("New Goal Title", text: $viewModel.goal.title)
                             }
                             
+                            // Times Per Week
                             Section(header: Text("Times Per Week").font(.body)) {
                                 let timesThisWeek = viewModel.goal.timesThisWeek
                                 let timesPerWeek = $viewModel.goal.timesPerWeek
@@ -70,6 +74,7 @@ struct GoalEditorView: View {
                                 }
                             }
                             
+                            // Delete
                             if isEditingMode {
                                 Section(header: Text("Delete").font(.body)) {
                                     Button(action: {
@@ -80,44 +85,18 @@ struct GoalEditorView: View {
                                     }
                                 }
                             }
+                            
+
                         }
-                        Spacer()
+                        //Spacer()
                     }
                     
                     // Save/Update Button
                     Button(action: {
                         if isEditingMode {
-                            viewModel.updateCurrentGoal { result in
-                                switch result {
-                                case .success:
-                                    presentationMode.wrappedValue.dismiss()
-                                case .failure(let error):
-                                    if case UserDataError.duplicateGoalTitle = error {
-                                        activeAlert = .duplicatePassword
-                                    } else if case InputError.blankTitle = error {
-                                        activeAlert = .blankTitle
-                                    } else {
-                                        activeAlert = .generic
-                                    }
-                                    showingAlert = true
-                                }
-                            }
+                            handleUpdateCurrentGoal()
                         } else {
-                            viewModel.addNewGoal { result in
-                                switch result {
-                                case .success:
-                                    presentationMode.wrappedValue.dismiss()
-                                case .failure(let error):
-                                    if case UserDataError.duplicateGoalTitle = error {
-                                        activeAlert = .duplicatePassword
-                                    } else if case InputError.blankTitle = error {
-                                        activeAlert = .blankTitle
-                                    } else {
-                                        activeAlert = .generic
-                                    }
-                                    showingAlert = true
-                                }
-                            }
+                            handleAddNewGoal()
                         }
                     }) {
                         Text(isEditingMode ? "Update" : "Save")
@@ -128,57 +107,93 @@ struct GoalEditorView: View {
                             .background(Color.secondary)
                             .cornerRadius(8)
                     }
-                    .alert(isPresented: $showingAlert) {
-                        var title = ""
-                        var message = ""
-                        var cancelButton: Alert.Button?
-                        var confirmButton: Alert.Button?
-                        
-                        switch activeAlert {
-                        case .blankTitle:
-                            title = "Blank Title"
-                            message = "Please enter a title for your goal."
-                        case .duplicatePassword:
-                            title = "Duplicate Goal Title"
-                            message = "Title is already in use. Please enter a unique title for your goal."
-                        case .generic:
-                            title = "Oops!"
-                            message = "Something went wrong, please try again."
-                        case .deletingGoal:
-                            title = "Delete Goal?"
-                            message = "Deleting this goal is permanent and can't be undone. Are you sure you want to continue?"
-                            
-                            cancelButton = Alert.Button.default(Text("Cancel"))
-                            confirmButton = Alert.Button.destructive(Text("Delete")) {
-                                deleteCurrentGoal()
-                            }
-                        case .decrementTimesThisWeek:
-                            title = "Decrement Progress?"
-                            message = "Are you sure you want to decrement your progress this week?"
-                            
-                            cancelButton = Alert.Button.default(Text("Cancel"))
-                            confirmButton = Alert.Button.destructive(Text("Decrement")) {
-                                decrementGoalTimesThisWeek()
-                            }
-                        }
-                        
-                        let alertTitle = Text(title)
-                        let alertMessage = Text(message)
-                        
-                        if let cancelButton = cancelButton,
-                           let confirmButton = confirmButton {
-                            return Alert(title: alertTitle, message: alertMessage, primaryButton: cancelButton, secondaryButton: confirmButton)
-                        } else {
-                            return Alert(title: alertTitle, message: alertMessage)
-                        }
-                    }
                 }
                 .navigationBarTitle(isEditingMode ? "Edit Goal" : "Add New Goal", displayMode: .inline)
+                .alert(isPresented: $showingAlert) {
+                    var title = ""
+                    var message = ""
+                    var cancelButton: Alert.Button?
+                    var confirmButton: Alert.Button?
+                    
+                    switch activeAlert {
+                    case .blankTitle:
+                        title = "Blank Title"
+                        message = "Please enter a title for your goal."
+                    case .duplicatePassword:
+                        title = "Duplicate Goal Title"
+                        message = "Title is already in use. Please enter a unique title for your goal."
+                    case .generic:
+                        title = "Oops!"
+                        message = "Something went wrong, please try again."
+                    case .deletingGoal:
+                        title = "Delete Goal?"
+                        message = "Deleting this goal is permanent and can't be undone. Are you sure you want to continue?"
+                        
+                        cancelButton = Alert.Button.default(Text("Cancel"))
+                        confirmButton = Alert.Button.destructive(Text("Delete")) {
+                            handleDeleteCurrentGoal()
+                        }
+                    case .decrementTimesThisWeek:
+                        title = "Decrement Progress?"
+                        message = "Are you sure you want to decrement your progress this week?"
+                        
+                        cancelButton = Alert.Button.default(Text("Cancel"))
+                        confirmButton = Alert.Button.destructive(Text("Decrement")) {
+                            handleDecrementGoalTimesThisWeek()
+                        }
+                    }
+                    
+                    let alertTitle = Text(title)
+                    let alertMessage = Text(message)
+                    
+                    if let cancelButton = cancelButton,
+                       let confirmButton = confirmButton {
+                        return Alert(title: alertTitle, message: alertMessage, primaryButton: cancelButton, secondaryButton: confirmButton)
+                    } else {
+                        return Alert(title: alertTitle, message: alertMessage)
+                    }
+                }
             }
         }
     }
     
-    private func decrementGoalTimesThisWeek() {
+    private func handleUpdateCurrentGoal() {
+        viewModel.updateCurrentGoal { result in
+            switch result {
+            case .success:
+                presentationMode.wrappedValue.dismiss()
+            case .failure(let error):
+                if case UserDataError.duplicateGoalTitle = error {
+                    activeAlert = .duplicatePassword
+                } else if case InputError.blankTitle = error {
+                    activeAlert = .blankTitle
+                } else {
+                    activeAlert = .generic
+                }
+                showingAlert = true
+            }
+        }
+    }
+    
+    private func handleAddNewGoal() {
+        viewModel.addNewGoal { result in
+            switch result {
+            case .success:
+                presentationMode.wrappedValue.dismiss()
+            case .failure(let error):
+                if case UserDataError.duplicateGoalTitle = error {
+                    activeAlert = .duplicatePassword
+                } else if case InputError.blankTitle = error {
+                    activeAlert = .blankTitle
+                } else {
+                    activeAlert = .generic
+                }
+                showingAlert = true
+            }
+        }
+    }
+    
+    private func handleDecrementGoalTimesThisWeek() {
         let generator = UINotificationFeedbackGenerator()
 
         viewModel.decrementGoalTimesThisWeek { result in
@@ -194,7 +209,7 @@ struct GoalEditorView: View {
         }
     }
     
-    private func deleteCurrentGoal() {
+    private func handleDeleteCurrentGoal() {
         viewModel.deleteCurrentGoal { result in
             switch result {
             case .success:

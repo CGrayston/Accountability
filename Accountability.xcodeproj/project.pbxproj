@@ -13,7 +13,7 @@
 		FF0045FF24F2F9FF0047B232 /* GoalRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0045FE24F2F9FF0047B232 /* GoalRemoteDataSource.swift */; };
 		FF00460224F2FE830047B232 /* GoalCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00460124F2FE820047B232 /* GoalCollectionViewModel.swift */; };
 		FF00460524F2FFAD0047B232 /* GoalProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00460424F2FFAD0047B232 /* GoalProgressViewModel.swift */; };
-		FF00460724F300190047B232 /* FetchAllGoalsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00460624F300190047B232 /* FetchAllGoalsUseCase.swift */; };
+		FF00460724F300190047B232 /* FetchGoalsThisWeekUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00460624F300190047B232 /* FetchGoalsThisWeekUseCase.swift */; };
 		FF00460924F300720047B232 /* UpdateGoalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00460824F300720047B232 /* UpdateGoalUseCase.swift */; };
 		FF2192CE24E62D8800D8A316 /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2192CD24E62D8800D8A316 /* EntryListView.swift */; };
 		FF2192D024E6370100D8A316 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2192CF24E6370100D8A316 /* Entry.swift */; };
@@ -32,6 +32,7 @@
 		FF69C503253772A90023F92E /* PersonalGoalsProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF69C502253772A90023F92E /* PersonalGoalsProgressBar.swift */; };
 		FF69D63424F89CD50008A4D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5BAEF124D92569004B2DE9 /* Assets.xcassets */; };
 		FF72915A24E0CAEB00170080 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF72915924E0CAEB00170080 /* SettingsView.swift */; };
+		FF72B160253EA372003214F2 /* GoalsTemplateToErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF72B15F253EA372003214F2 /* GoalsTemplateToErrorMapper.swift */; };
 		FF76FC1624F1E03300A8E6B5 /* SignInWithGoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76FC1524F1E03300A8E6B5 /* SignInWithGoogleButton.swift */; };
 		FF76FC1A24F1EE5F00A8E6B5 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76FC1924F1EE5F00A8E6B5 /* SignInViewController.swift */; };
 		FF807A1E25354B37005D424B /* DeleteGoalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF807A1D25354B37005D424B /* DeleteGoalUseCase.swift */; };
@@ -39,6 +40,8 @@
 		FF8ACD4724FB01EB003EEA1C /* FetchUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8ACD4624FB01EB003EEA1C /* FetchUserUseCase.swift */; };
 		FF8BDCE62505E822006F197F /* LogOutUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8BDCE52505E822006F197F /* LogOutUserUseCase.swift */; };
 		FF8DA0DC24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8DA0DB24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift */; };
+		FF9B83D4254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9B83D3254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift */; };
+		FF9B83D7254FBE8C00731FF8 /* TemplateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9B83D6254FBE8C00731FF8 /* TemplateStatus.swift */; };
 		FF9CC64B24DBB05F0065C9CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF9CC64A24DBB05F0065C9CF /* GoogleService-Info.plist */; };
 		FF9CC64E24DBB98F0065C9CF /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CC64D24DBB98F0065C9CF /* TaskRepository.swift */; };
 		FF9CC65024DBCE8F0065C9CF /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CC64F24DBCE8F0065C9CF /* SignInWithAppleButton.swift */; };
@@ -68,6 +71,9 @@
 		FFCEE5AB24FAE9F900504D0C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCEE5AA24FAE9F900504D0C /* User.swift */; };
 		FFCEE5AE24FAECAD00504D0C /* CreateUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCEE5AD24FAECAD00504D0C /* CreateUserUseCase.swift */; };
 		FFCEE5B124FAEF3800504D0C /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCEE5B024FAEF3800504D0C /* UserRepository.swift */; };
+		FFD5C2B8254D040C00758747 /* CreateThisWeeksGoalsFromTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD5C2B7254D040C00758747 /* CreateThisWeeksGoalsFromTemplate.swift */; };
+		FFD5C2BB254D0D5400758747 /* GoalsDomainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD5C2BA254D0D5400758747 /* GoalsDomainError.swift */; };
+		FFD5C2C1254FB8BA00758747 /* FetchTemplateStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD5C2C0254FB8BA00758747 /* FetchTemplateStatusUseCase.swift */; };
 		FFD760F8253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD760F7253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift */; };
 		FFD76117253C048A004DE189 /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD76116253C048A004DE189 /* GoalProgressView.swift */; };
 		FFD7611C253C155F004DE189 /* DecrementGoalTimesThisWeekUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7611B253C155F004DE189 /* DecrementGoalTimesThisWeekUseCase.swift */; };
@@ -86,7 +92,7 @@
 		FF0045FE24F2F9FF0047B232 /* GoalRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRemoteDataSource.swift; sourceTree = "<group>"; };
 		FF00460124F2FE820047B232 /* GoalCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewModel.swift; sourceTree = "<group>"; };
 		FF00460424F2FFAD0047B232 /* GoalProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressViewModel.swift; sourceTree = "<group>"; };
-		FF00460624F300190047B232 /* FetchAllGoalsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllGoalsUseCase.swift; sourceTree = "<group>"; };
+		FF00460624F300190047B232 /* FetchGoalsThisWeekUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGoalsThisWeekUseCase.swift; sourceTree = "<group>"; };
 		FF00460824F300720047B232 /* UpdateGoalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalUseCase.swift; sourceTree = "<group>"; };
 		FF2192CD24E62D8800D8A316 /* EntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListView.swift; sourceTree = "<group>"; };
 		FF2192CF24E6370100D8A316 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
@@ -107,6 +113,7 @@
 		FF5BAF0524D93232004B2DE9 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
 		FF69C502253772A90023F92E /* PersonalGoalsProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalGoalsProgressBar.swift; sourceTree = "<group>"; };
 		FF72915924E0CAEB00170080 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FF72B15F253EA372003214F2 /* GoalsTemplateToErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsTemplateToErrorMapper.swift; sourceTree = "<group>"; };
 		FF76FC1524F1E03300A8E6B5 /* SignInWithGoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithGoogleButton.swift; sourceTree = "<group>"; };
 		FF76FC1924F1EE5F00A8E6B5 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		FF807A1D25354B37005D424B /* DeleteGoalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalUseCase.swift; sourceTree = "<group>"; };
@@ -115,6 +122,8 @@
 		FF8BDCE52505E822006F197F /* LogOutUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutUserUseCase.swift; sourceTree = "<group>"; };
 		FF8DA0DB24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleCoordinator.swift; sourceTree = "<group>"; };
 		FF8DA0DD24DCF5EC002BD054 /* Accountability.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Accountability.entitlements; sourceTree = "<group>"; };
+		FF9B83D3254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalTemplateRequestModel.swift; sourceTree = "<group>"; };
+		FF9B83D6254FBE8C00731FF8 /* TemplateStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateStatus.swift; sourceTree = "<group>"; };
 		FF9CC64A24DBB05F0065C9CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF9CC64D24DBB98F0065C9CF /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
 		FF9CC64F24DBCE8F0065C9CF /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
@@ -143,6 +152,9 @@
 		FFCEE5AA24FAE9F900504D0C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FFCEE5AD24FAECAD00504D0C /* CreateUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserUseCase.swift; sourceTree = "<group>"; };
 		FFCEE5B024FAEF3800504D0C /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		FFD5C2B7254D040C00758747 /* CreateThisWeeksGoalsFromTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThisWeeksGoalsFromTemplate.swift; sourceTree = "<group>"; };
+		FFD5C2BA254D0D5400758747 /* GoalsDomainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsDomainError.swift; sourceTree = "<group>"; };
+		FFD5C2C0254FB8BA00758747 /* FetchTemplateStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTemplateStatusUseCase.swift; sourceTree = "<group>"; };
 		FFD760F7253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementGoalTimesThisWeekUseCase.swift; sourceTree = "<group>"; };
 		FFD76116253C048A004DE189 /* GoalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressView.swift; sourceTree = "<group>"; };
 		FFD7611B253C155F004DE189 /* DecrementGoalTimesThisWeekUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecrementGoalTimesThisWeekUseCase.swift; sourceTree = "<group>"; };
@@ -204,6 +216,9 @@
 			children = (
 				FFD7615A253CF3AF004DE189 /* UseCase */,
 				FFD76160253CF3D4004DE189 /* Model */,
+				FF72B162253EA377003214F2 /* Mapper */,
+				FFD5C2BA254D0D5400758747 /* GoalsDomainError.swift */,
+				FFD5C2BF254FB87200758747 /* Error */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -400,6 +415,14 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		FF72B162253EA377003214F2 /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				FF72B15F253EA372003214F2 /* GoalsTemplateToErrorMapper.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
 		FF8DA0DA24DCF1D6002BD054 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,6 +543,13 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		FFD5C2BF254FB87200758747 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		FFD76119253C0520004DE189 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,12 +562,13 @@
 		FFD7615A253CF3AF004DE189 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				FF00460624F300190047B232 /* FetchAllGoalsUseCase.swift */,
+				FF00460624F300190047B232 /* FetchGoalsThisWeekUseCase.swift */,
 				FF00460824F300720047B232 /* UpdateGoalUseCase.swift */,
 				FFB8AFF7252ED36900E6F079 /* AddGoalUseCase.swift */,
 				FF807A1D25354B37005D424B /* DeleteGoalUseCase.swift */,
 				FFD760F7253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift */,
 				FFD7611B253C155F004DE189 /* DecrementGoalTimesThisWeekUseCase.swift */,
+				FFD5C2B7254D040C00758747 /* CreateThisWeeksGoalsFromTemplate.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -557,6 +588,7 @@
 				FFCEE5AD24FAECAD00504D0C /* CreateUserUseCase.swift */,
 				FFA3E32024FB4EEA00145859 /* UpdateUserUseCase.swift */,
 				FF8BDCE52505E822006F197F /* LogOutUserUseCase.swift */,
+				FFD5C2C0254FB8BA00758747 /* FetchTemplateStatusUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -565,6 +597,8 @@
 			isa = PBXGroup;
 			children = (
 				FFD92B2E2539641300DFE11E /* GoalTemplateRequestModel.swift */,
+				FF9B83D3254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift */,
+				FF9B83D6254FBE8C00731FF8 /* TemplateStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -704,6 +738,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF0045FB24F2E1160047B232 /* CreateEntryUseCase.swift in Sources */,
+				FF9B83D7254FBE8C00731FF8 /* TemplateStatus.swift in Sources */,
 				FFD92B2F2539641300DFE11E /* GoalTemplateRequestModel.swift in Sources */,
 				FFD76117253C048A004DE189 /* GoalProgressView.swift in Sources */,
 				FF2192D024E6370100D8A316 /* Entry.swift in Sources */,
@@ -715,10 +750,12 @@
 				FF2192DF24E6457D00D8A316 /* EntryRepository.swift in Sources */,
 				FF9CC65224DBCF860065C9CF /* SignInView.swift in Sources */,
 				FF0045FF24F2F9FF0047B232 /* GoalRemoteDataSource.swift in Sources */,
+				FFD5C2C1254FB8BA00758747 /* FetchTemplateStatusUseCase.swift in Sources */,
 				FFBFB10624E8CC4200E984DA /* Date+Additions.swift in Sources */,
 				FF5BAF0024D9258C004B2DE9 /* Task.swift in Sources */,
 				FFBFB10F24EB977700E984DA /* FetchAllEntriesUseCase.swift in Sources */,
 				FFB8AFF5252EA94000E6F079 /* Color+Additions.swift in Sources */,
+				FFD5C2BB254D0D5400758747 /* GoalsDomainError.swift in Sources */,
 				FF346E18253D4D7C00907D8B /* SignUpViewController.swift in Sources */,
 				FFB8AFF8252ED36900E6F079 /* AddGoalUseCase.swift in Sources */,
 				FF271C5E24F2150D000AF557 /* GoalCollectionView.swift in Sources */,
@@ -730,6 +767,7 @@
 				FF8ACD4724FB01EB003EEA1C /* FetchUserUseCase.swift in Sources */,
 				FFBFB13624EE2DCD00E984DA /* UpdateEntryUseCase.swift in Sources */,
 				FFD760F8253BF71A004DE189 /* IncrementGoalTimesThisWeekUseCase.swift in Sources */,
+				FF9B83D4254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift in Sources */,
 				FF0045F824F23F4E0047B232 /* Goal.swift in Sources */,
 				FF5BAEEE24D92563004B2DE9 /* SceneDelegate.swift in Sources */,
 				FF5BAEF024D92563004B2DE9 /* TaskListView.swift in Sources */,
@@ -750,8 +788,10 @@
 				FFAE6FD824E3AC4A005FE734 /* TabBarView.swift in Sources */,
 				FF72915A24E0CAEB00170080 /* SettingsView.swift in Sources */,
 				FF8BDCE62505E822006F197F /* LogOutUserUseCase.swift in Sources */,
+				FF72B160253EA372003214F2 /* GoalsTemplateToErrorMapper.swift in Sources */,
 				FFB8B017252ED73700E6F079 /* GoalEditorViewModel.swift in Sources */,
 				FFA3E32124FB4EEA00145859 /* UpdateUserUseCase.swift in Sources */,
+				FFD5C2B8254D040C00758747 /* CreateThisWeeksGoalsFromTemplate.swift in Sources */,
 				FFCEE5B124FAEF3800504D0C /* UserRepository.swift in Sources */,
 				FF2192D924E643C600D8A316 /* EntryListViewModel.swift in Sources */,
 				FFCEE5AE24FAECAD00504D0C /* CreateUserUseCase.swift in Sources */,
@@ -761,7 +801,7 @@
 				FFBFB13A24EE4B4500E984DA /* FetchAllTasksUseCase.swift in Sources */,
 				FF807A1E25354B37005D424B /* DeleteGoalUseCase.swift in Sources */,
 				FFBFB13C24EE4BA800E984DA /* UpdateTaskUseCase.swift in Sources */,
-				FF00460724F300190047B232 /* FetchAllGoalsUseCase.swift in Sources */,
+				FF00460724F300190047B232 /* FetchGoalsThisWeekUseCase.swift in Sources */,
 				FF69C503253772A90023F92E /* PersonalGoalsProgressBar.swift in Sources */,
 				FFBFB10824EB800D00E984DA /* EntryEditorViewModel.swift in Sources */,
 				FF2192E124E64C4000D8A316 /* EntryCellViewModel.swift in Sources */,

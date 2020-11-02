@@ -15,6 +15,8 @@ class GoalCollectionViewModel: ObservableObject {
     @Published private var goals = [Goal]()
 
     private let fetchAllGoalsUseCase = UseCaseProvider().fetchAllGoalsUseCase
+    private let fetchTemplateStatusUseCase = UseCaseProvider().fetchTemplateStatusUseCase
+    private let createThisWeeksGoalsFromTemplate = UseCaseProvider().createThisWeeksGoalsFromTemplate
     private var cancellables = Set<AnyCancellable>()
     
     var totalProgress: Double {
@@ -23,7 +25,7 @@ class GoalCollectionViewModel: ObservableObject {
         
         return totalTimesPerWeek == 0 ? 0 : Double(totalTimesThisWeek)/Double(totalTimesPerWeek)
     }
-    
+        
     var hasGoals: Bool {
         return goals.count > 0
     }
@@ -45,7 +47,7 @@ class GoalCollectionViewModel: ObservableObject {
         .store(in: &self.cancellables)
     }
     
-    private func fetchAllGoals() {
+    func fetchAllGoals() {
         fetchAllGoalsUseCase.execute { [weak self] result in
             guard let self = self else { return }
             
@@ -61,10 +63,21 @@ class GoalCollectionViewModel: ObservableObject {
                 }
                 .assign(to: \.goalProgressViewModels, on : self)
                 .store(in: &self.cancellables)
-                
             case .failure(let error):
-                fatalError("TODO: Handle error here for fetching goals \(error.localizedDescription)")
+                fatalError(error.localizedDescription)
             }
+        }
+    }
+    
+    func createThisWeeksGoalsFromTemplate(completion: @escaping (Result<Void, Error>) -> Void) {
+        createThisWeeksGoalsFromTemplate.execute { result in
+            completion(result)
+        }
+    }
+    
+    func fetchTemplateStatus(completion: @escaping (Result<TemplateStatus, Error>) -> Void) {
+        fetchTemplateStatusUseCase.execute { result in
+            completion(result)
         }
     }
 }

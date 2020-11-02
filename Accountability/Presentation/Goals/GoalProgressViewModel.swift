@@ -63,6 +63,10 @@ class GoalProgressViewModel: ObservableObject, Identifiable {
             return 0.0
         }
         
+        if goal.timesPerWeek == 0 {
+            return 0.0
+        }
+        
         return Double(goal.timesThisWeek) / Double(goal.timesPerWeek)
     }
 }

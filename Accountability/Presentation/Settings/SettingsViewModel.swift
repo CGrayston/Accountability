@@ -31,14 +31,15 @@ class SettingsViewModel: ObservableObject {
             switch result {
             case .success(let userResponse):
                 self.user = userResponse
-                              
-                self.$user
-                    .dropFirst()
-                    .debounce(for: 1.0, scheduler: RunLoop.main)
-                    .sink { [weak self] user in
-                        self?.updateUser(user: user!)
-                }
-                .store(in: &self.cancellables)
+                   
+                // TODO: Probably going to want to delete this. Don't want users to be able to change things so easily
+//                self.$user
+//                    .dropFirst()
+//                    .debounce(for: 1.0, scheduler: RunLoop.main)
+//                    .sink { [weak self] user in
+//                        self?.updateUser(user: user!)
+//                }
+//                .store(in: &self.cancellables)
                 
             case .failure(let error):
                 //fatalError(error.localizedDescription)
@@ -66,6 +67,7 @@ class SettingsViewModel: ObservableObject {
             case .failure(let error):
                 switch error {
                 case UserDataError.duplicateUsername:
+                    // Getting called for wrong reasons
                     print("TODO: Handle this case")
                 default:
                     print("Error updating user: \(error.localizedDescription)")

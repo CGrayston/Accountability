@@ -10,6 +10,8 @@ import Foundation
 
 protocol UserRepository {
     
+    // MARK: - User CRUD Methods
+
     func fetchUser(completion: @escaping (Result<User, Error>) -> Void)
     
     func createUser(user: User, completion: @escaping (Result<Void, Error>) -> Void)
@@ -18,11 +20,19 @@ protocol UserRepository {
     
     func logOutUser(completion: @escaping (Result<Void, Error>) -> Void)
     
+    // MARK: - Goal Template CRUD Methods
+
+    func fetchGoalsTemplate(completion: @escaping (Result<[String: Int]?, Error>) -> Void)
+
     func addGoalTemplateEntry(request: GoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
     
     func updateGoalTemplateEntry(requestModel: UpdateGoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
 
     func deleteGoalTemplateEntry(goalTitle: String, completion: @escaping (Result<Void, Error>) -> Void)
+
+    func clearGoalsTemplate(completion: @escaping (Result<Void, Error>) -> Void)
+    
+    // MARK: - Username/Title Verification Methods
 
     func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void)
     
@@ -67,6 +77,12 @@ final class UserDataRepository: UserRepository {
     
     // MARK: - Goal Template CRUD Methods
     
+    func fetchGoalsTemplate(completion: @escaping (Result<[String: Int]?, Error>) -> Void) {
+        remoteDataSource.fetchGoalsTemplate { result in
+            completion(result)
+        }
+    }
+    
     func addGoalTemplateEntry(request: GoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void) {
         remoteDataSource.addGoalTemplateEntry(request: request) { result in
             completion(result)
@@ -81,6 +97,12 @@ final class UserDataRepository: UserRepository {
     
     func deleteGoalTemplateEntry(goalTitle: String, completion: @escaping (Result<Void, Error>) -> Void) {
         remoteDataSource.deleteGoalTemplateEntry(goalTitle: goalTitle) { result in
+            completion(result)
+        }
+    }
+    
+    func clearGoalsTemplate(completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.clearGoalsTemplate { result in
             completion(result)
         }
     }

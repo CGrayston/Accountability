@@ -21,11 +21,15 @@ protocol UserDataSource {
     
     func logOutUser(completion: @escaping (Result<Void, Error>) -> Void)
     
+    func fetchGoalsTemplate(completion: @escaping (Result<[String: Int]?, Error>) -> Void)
+    
     func addGoalTemplateEntry(request: GoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
     
     func updateGoalTemplateEntry(requestModel: UpdateGoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
     
     func deleteGoalTemplateEntry(goalTitle: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func clearGoalsTemplate(completion: @escaping (Result<Void, Error>) -> Void)
     
     func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void)
     
@@ -116,6 +120,32 @@ final class UserRemoteDataSource: UserDataSource {
     
     // MARK: - Goal Template CRUD Methods
     
+    func fetchGoalsTemplate(completion: @escaping (Result<[String: Int]?, Error>) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            completion(.failure(UserDataError.notAuthenticated))
+            return
+        }
+        
+        usersReference.document(userId).getDocument(completion: { documentSnapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            } else {
+                guard let document = documentSnapshot else {
+                    completion(.failure(UserDataError.fetching))
+                    return
+                }
+                
+                guard let user = try? document.data(as: User.self) else {
+                    completion(.failure(UserDataError.noUser))
+                    return
+                }
+                
+                completion(.success(user.goalsTemplate))
+            }
+        })
+    }
+
     func addGoalTemplateEntry(request: GoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else {
             completion(.failure(UserDataError.notAuthenticated))
@@ -216,6 +246,23 @@ final class UserRemoteDataSource: UserDataSource {
         })
     }
     
+    func clearGoalsTemplate(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            completion(.failure(UserDataError.notAuthenticated))
+            return
+        }
+        
+        usersReference.document(userId).updateData([
+            "goalsTemplate": [:],
+        ], completion: { error in
+            if let error = error {
+                completion(.failure(error))
+            }
+            
+            completion(.success(()))
+        })
+    }
+
     // MARK: - Name/Title Verification Methods
     
     func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void) {

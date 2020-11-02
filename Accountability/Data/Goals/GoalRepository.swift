@@ -10,7 +10,9 @@ import Foundation
 
 protocol GoalRepository {
     
-    func fetchAllGoals(completion: @escaping (Result<[Goal], Error>) -> Void)
+    func fetchGoalsThisWeek(completion: @escaping (Result<[Goal], Error>) -> Void)
+    
+    func createThisWeeksGoalsFromTemplate(goalsTemplate: [String: Int], completion: @escaping (Result<Void, Error>) -> Void)
     
     func addGoal(goal: Goal, completion: @escaping (Result<Void, Error>) -> Void)
     
@@ -31,8 +33,14 @@ final class GoalDataRepository: GoalRepository {
         self.remoteDataSource = remoteDataSource
     }
     
-    func fetchAllGoals(completion: @escaping (Result<[Goal], Error>) -> Void) {
-        remoteDataSource.fetchAllGoals { result in
+    func fetchGoalsThisWeek(completion: @escaping (Result<[Goal], Error>) -> Void) {
+        remoteDataSource.fetchGoalsThisWeek { result in
+            completion(result)
+        }
+    }
+    
+    func createThisWeeksGoalsFromTemplate(goalsTemplate: [String: Int], completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.createThisWeeksGoalsFromTemplate(goalsTemplate: goalsTemplate) { result in
             completion(result)
         }
     }

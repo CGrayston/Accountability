@@ -12,10 +12,3 @@ struct GoalTemplateRequestModel {
     let title: String
     let timesPerWeek: Int
 }
-
-// TODO: Move to own file
-struct UpdateGoalTemplateRequestModel {
-    let newTitle: String
-    let originalTitle: String
-    let timesPerWeek: Int
-}
