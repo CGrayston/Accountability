@@ -21,11 +21,11 @@ class DeleteGoalUseCase: VoidResponseUseCase {
     }
     
     func execute(request: Request, completion: @escaping (Result<Void, Error>) -> Void) {
-        goalRepository.deleteGoal(goalId: request.goalId) { [weak self] result in
-            // If goal deleted successfully then we delete it from user.goalTemplate
+        self.userRepository.deleteGoalTemplateEntry(goalTitle: request.goalTitle) { result in
+            // If goal template deleted successfully then we delete the goal
             switch result {
             case .success:
-                self?.userRepository.deleteGoalTemplateEntry(goalTitle: request.goalTitle) { result in
+                self.goalRepository.deleteGoal(goalId: request.goalId) { result in
                     completion(result)
                 }
             case .failure(let error):
@@ -33,10 +33,4 @@ class DeleteGoalUseCase: VoidResponseUseCase {
             }
         }
     }
-}
-
-// TODO: Move to own file
-struct DeleteGoalRequestModel {
-    let goalId: String
-    let goalTitle: String
 }

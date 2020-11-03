@@ -33,10 +33,10 @@ struct GoalCollectionView: View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
                 ScrollView {
-                    VStack(spacing: 32) {
+                    VStack(spacing: 16) {
                         if viewModel.hasGoals {
                             PersonalGoalsProgressBar(totalProgress: viewModel.totalProgress)
-                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.06, alignment: .center)
+                                .frame(width: geometry.size.width * 0.95, height: geometry.size.height * 0.125)
                                 .padding(.bottom)
                         }
                         
@@ -146,8 +146,20 @@ struct GoalCollectionView: View {
             }
         }
         .onAppear {
-            if !viewModel.hasGoals {
-                checkTemplateStatusForAlert()
+            viewModel.fetchTemplateStatus = { result in
+                switch result {
+                case .success(let templateStatus):
+                    switch templateStatus {
+                    case .nilTemplate:
+                        activeAlert = .goalFTUX
+                    case .emptyTemplate:
+                        activeAlert = .noGoals
+                    case .hasTemplate:
+                        activeAlert = .newWeek
+                    }
+                case .failure(let error):
+                    activeAlert = .customError(errorMessage: error.localizedDescription)
+                }
             }
         }
     }
@@ -159,24 +171,6 @@ struct GoalCollectionView: View {
                 showingAlert = false
             case .failure(_):
                 activeAlert = .generic
-            }
-        }
-    }
-    
-    func checkTemplateStatusForAlert() {
-        viewModel.fetchTemplateStatus { result in
-            switch result {
-            case .success(let templateStatus):
-                switch templateStatus {
-                case .nilTemplate:
-                    activeAlert = .goalFTUX
-                case .emptyTemplate:
-                    activeAlert = .noGoals
-                case .hasTemplate:
-                    activeAlert = .newWeek
-                }
-            case .failure(let error):
-                activeAlert = .customError(errorMessage: error.localizedDescription)
             }
         }
     }

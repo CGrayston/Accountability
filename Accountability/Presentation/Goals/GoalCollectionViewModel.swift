@@ -25,6 +25,8 @@ class GoalCollectionViewModel: ObservableObject {
         
         return totalTimesPerWeek == 0 ? 0 : Double(totalTimesThisWeek)/Double(totalTimesPerWeek)
     }
+    
+    var fetchTemplateStatus: ((Result<TemplateStatus, Error>) -> Void) = { _ in }
         
     var hasGoals: Bool {
         return goals.count > 0
@@ -63,6 +65,12 @@ class GoalCollectionViewModel: ObservableObject {
                 }
                 .assign(to: \.goalProgressViewModels, on : self)
                 .store(in: &self.cancellables)
+                
+                if goals.count == 0 {
+                    self.fetchTemplateStatusUseCase.execute { result in
+                        self.fetchTemplateStatus(result)
+                    }
+                }
             case .failure(let error):
                 fatalError(error.localizedDescription)
             }
@@ -71,12 +79,6 @@ class GoalCollectionViewModel: ObservableObject {
     
     func createThisWeeksGoalsFromTemplate(completion: @escaping (Result<Void, Error>) -> Void) {
         createThisWeeksGoalsFromTemplate.execute { result in
-            completion(result)
-        }
-    }
-    
-    func fetchTemplateStatus(completion: @escaping (Result<TemplateStatus, Error>) -> Void) {
-        fetchTemplateStatusUseCase.execute { result in
             completion(result)
         }
     }

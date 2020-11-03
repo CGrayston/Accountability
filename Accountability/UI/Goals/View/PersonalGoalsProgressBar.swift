@@ -9,20 +9,52 @@
 import SwiftUI
 
 struct PersonalGoalsProgressBar: View {
+    
     var totalProgress: Double
     
     var body: some View {
         GeometryReader { geometry in
+            
+            let width = geometry.size.width
+            let height = geometry.size.height
+            let circleDiameter = height
+            let barHeight = height * 0.6
+            let barWidth = width * 0.85
+            let cornerRadius: CGFloat = height
+            
             ZStack(alignment: .leading) {
-                Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
-                    .opacity(0.3)
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .frame(width: barWidth, height: barHeight)
+                        .opacity(0.5)
+                        .foregroundColor(.red)
+                    
+                    RoundedRectangle(cornerRadius: cornerRadius/2)
+                        .frame(width: min(CGFloat(self.totalProgress) * barWidth, barWidth), height: barHeight)
+                        .animation(.linear)
+                }
+                .offset(x: width * 0.15)
                 
-                Rectangle().frame(width: min(CGFloat(self.totalProgress)*geometry.size.width, geometry.size.width), height: geometry.size.height)
-                    .animation(.linear)
+                ZStack(alignment: .center) {
+                    Circle()
+                        .frame(width: circleDiameter, height: circleDiameter)
+                    
+                    Circle()
+                        .frame(width: circleDiameter * 0.875, height: circleDiameter * 0.875, alignment: .center)
+                        .opacity(1.0)
+                        .foregroundColor(.white)
+                    
+                    Circle()
+                        .frame(width: circleDiameter * 0.75, height: circleDiameter * 0.75, alignment: .center)
+                    
+                    Text(String(format: "%.0f%%", min(self.totalProgress, 1.0) * 100.0))
+                        .font(.system(size: height > width ? width * 0.25: height * 0.25))
+                        .bold()
+                        .foregroundColor(.black)
+                }
             }
-            .foregroundColor(Color.greenRedProgress(progress: totalProgress))
-            .cornerRadius(45.0)
         }
+        .foregroundColor(Color.greenRedProgress(progress: totalProgress))
     }
 }
 
@@ -30,8 +62,10 @@ struct PersonalGoalsProgressBar: View {
 struct PersonalGoalsProgressBar_Previews: PreviewProvider {
     
     static var previews: some View {
-        PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.89).allGoalsProgress)
-            .frame(width: 375, height: 40, alignment: .center)
+        GeometryReader { geometry in
+            PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 1.0).allGoalsProgress)
+                .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+        }
     }
 }
 #endif

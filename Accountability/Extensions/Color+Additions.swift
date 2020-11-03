@@ -21,7 +21,7 @@ extension Color {
         case 50:
             return Color.yellow
         case 51..<100:
-            return Color(red: Double(255 - modVal)/255, green: 1.0, blue: 0)
+            return Color(red: Double(255 - modVal)/255, green: 0.9, blue: 0)
         case 100:
             return Color.green
         default:

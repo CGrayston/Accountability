@@ -40,6 +40,7 @@
 		FF8ACD4724FB01EB003EEA1C /* FetchUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8ACD4624FB01EB003EEA1C /* FetchUserUseCase.swift */; };
 		FF8BDCE62505E822006F197F /* LogOutUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8BDCE52505E822006F197F /* LogOutUserUseCase.swift */; };
 		FF8DA0DC24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8DA0DB24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift */; };
+		FF9319AD254FD0FC008EAEF0 /* DeleteGoalRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9319AC254FD0FC008EAEF0 /* DeleteGoalRequestModel.swift */; };
 		FF9B83D4254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9B83D3254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift */; };
 		FF9B83D7254FBE8C00731FF8 /* TemplateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9B83D6254FBE8C00731FF8 /* TemplateStatus.swift */; };
 		FF9CC64B24DBB05F0065C9CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF9CC64A24DBB05F0065C9CF /* GoogleService-Info.plist */; };
@@ -122,6 +123,7 @@
 		FF8BDCE52505E822006F197F /* LogOutUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutUserUseCase.swift; sourceTree = "<group>"; };
 		FF8DA0DB24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleCoordinator.swift; sourceTree = "<group>"; };
 		FF8DA0DD24DCF5EC002BD054 /* Accountability.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Accountability.entitlements; sourceTree = "<group>"; };
+		FF9319AC254FD0FC008EAEF0 /* DeleteGoalRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalRequestModel.swift; sourceTree = "<group>"; };
 		FF9B83D3254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalTemplateRequestModel.swift; sourceTree = "<group>"; };
 		FF9B83D6254FBE8C00731FF8 /* TemplateStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateStatus.swift; sourceTree = "<group>"; };
 		FF9CC64A24DBB05F0065C9CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 			isa = PBXGroup;
 			children = (
 				FFD7615D253CF3C9004DE189 /* UpdateGoalRequestModel.swift */,
+				FF9319AC254FD0FC008EAEF0 /* DeleteGoalRequestModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -738,6 +741,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF0045FB24F2E1160047B232 /* CreateEntryUseCase.swift in Sources */,
+				FF9319AD254FD0FC008EAEF0 /* DeleteGoalRequestModel.swift in Sources */,
 				FF9B83D7254FBE8C00731FF8 /* TemplateStatus.swift in Sources */,
 				FFD92B2F2539641300DFE11E /* GoalTemplateRequestModel.swift in Sources */,
 				FFD76117253C048A004DE189 /* GoalProgressView.swift in Sources */,
@@ -949,6 +953,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Accountability/Accountability.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Accountability/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2P8CC25627;
 				ENABLE_PREVIEWS = YES;
@@ -973,6 +978,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Accountability/Accountability.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Accountability/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2P8CC25627;
 				ENABLE_PREVIEWS = YES;
