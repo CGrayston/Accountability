@@ -12,6 +12,8 @@ struct PersonalGoalsProgressBar: View {
     
     var totalProgress: Double
     
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         GeometryReader { geometry in
             
@@ -19,7 +21,7 @@ struct PersonalGoalsProgressBar: View {
             let height = geometry.size.height
             let circleDiameter = height
             let barHeight = height * 0.6
-            let barWidth = width * 0.85
+            let barWidth = width// * 0.85
             let cornerRadius: CGFloat = height
             
             ZStack(alignment: .leading) {
@@ -27,13 +29,14 @@ struct PersonalGoalsProgressBar: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .frame(width: barWidth, height: barHeight)
                         .opacity(0.5)
-                        .foregroundColor(.red)
+                        .foregroundColor(.barBackground)
                     
+                    // TODO : Refactor this 
+                    let progressBarWidth = totalProgress < 0.5 ?  CGFloat(self.totalProgress) * barWidth + circleDiameter/2 : min(CGFloat(self.totalProgress) * barWidth, barWidth)
                     RoundedRectangle(cornerRadius: cornerRadius/2)
-                        .frame(width: min(CGFloat(self.totalProgress) * barWidth, barWidth), height: barHeight)
-                        .animation(.linear)
+                        .frame(width: progressBarWidth, height: barHeight)
+                        .animation(.easeInOut)
                 }
-                .offset(x: width * 0.15)
                 
                 ZStack(alignment: .center) {
                     Circle()
@@ -42,7 +45,7 @@ struct PersonalGoalsProgressBar: View {
                     Circle()
                         .frame(width: circleDiameter * 0.875, height: circleDiameter * 0.875, alignment: .center)
                         .opacity(1.0)
-                        .foregroundColor(.white)
+                        .foregroundColor(.background)
                     
                     Circle()
                         .frame(width: circleDiameter * 0.75, height: circleDiameter * 0.75, alignment: .center)
@@ -52,6 +55,8 @@ struct PersonalGoalsProgressBar: View {
                         .bold()
                         .foregroundColor(.black)
                 }
+                .offset(x: CGFloat(totalProgress) * (width -  circleDiameter))
+                .animation(.easeInOut)
             }
         }
         .foregroundColor(Color.greenRedProgress(progress: totalProgress))
@@ -62,9 +67,45 @@ struct PersonalGoalsProgressBar: View {
 struct PersonalGoalsProgressBar_Previews: PreviewProvider {
     
     static var previews: some View {
-        GeometryReader { geometry in
-            PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 1.0).allGoalsProgress)
-                .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+        Group {
+            GeometryReader { geometry in
+                VStack(spacing: 8) {
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.0).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.09).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.2).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.3).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.5).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.7).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 1.0).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                }
+            }
+            
+            GeometryReader { geometry in
+                VStack(spacing: 8) {
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.0).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.09).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.2).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.3).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.5).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 0.7).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                    PersonalGoalsProgressBar(totalProgress: MockPersonalGoalsProgress(allGoalsProgress: 1.0).allGoalsProgress)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.125, alignment: .center)
+                }
+            }
+            .preferredColorScheme(.dark)
         }
     }
 }

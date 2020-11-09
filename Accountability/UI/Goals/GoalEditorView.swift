@@ -35,7 +35,7 @@ struct GoalEditorView: View {
                 ZStack(alignment: .bottom) {
                     VStack {
                         let goalProgressVM = GoalProgressViewModel(goal: viewModel.goal)
-                        GoalProgressView(goalProgressViewModel: goalProgressVM, isUIEnabled: false)
+                        GoalProgressView(goalProgressViewModel: goalProgressVM, showingEditingMode: .constant(false), isUIEnabled: false)
                             .padding(.top)
                         
                         List {

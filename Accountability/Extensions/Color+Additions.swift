@@ -29,3 +29,10 @@ extension Color {
         }
     }
 }
+
+// MARK: - Custom colors
+
+extension Color {
+    static let barBackground = Color("barBackground")
+    static let background = Color("background")
+}

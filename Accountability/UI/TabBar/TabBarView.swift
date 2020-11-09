@@ -45,6 +45,9 @@ struct TabBarView: View {
                         .font(tabFont)
             }.tag(3)
         }
+        .onAppear() {
+            UITabBar.appearance().backgroundColor = .systemGray
+        }
         .accentColor(.red)
     }
 }

@@ -19,16 +19,16 @@ extension Date {
     
     var startOfWeek: Date? {
         var gregorian = Calendar(identifier: .gregorian)
-        gregorian.timeZone = TimeZone(identifier: "UTC")!
-        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-        return gregorian.date(byAdding: .day, value: 1, to: sunday)
+        gregorian.firstWeekday = 2
+        guard let monday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
+        return monday
     }
 
     var endOfWeek: Date? {
         var gregorian = Calendar(identifier: .gregorian)
-        gregorian.timeZone = TimeZone(identifier: "UTC")!
-        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-        return gregorian.date(byAdding: .day, value: 7, to: sunday)
+        gregorian.firstWeekday = 2
+        guard let monday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
+        return gregorian.date(byAdding: .day, value: 7, to: monday)
     }
     
     func dateFormatter(_ format: String) -> String {
