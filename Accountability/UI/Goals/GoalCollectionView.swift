@@ -222,6 +222,10 @@ struct GoalsView_Previews: PreviewProvider {
         ]
         
         let viewModel = GoalCollectionViewModel(goals: goals)
-        GoalCollectionView(viewModel: viewModel)
+        Group {
+            GoalCollectionView(viewModel: viewModel)
+            GoalCollectionView(viewModel: viewModel)
+                .preferredColorScheme(.dark)
+        }
     }
 }

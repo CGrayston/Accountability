@@ -85,10 +85,7 @@ struct GoalEditorView: View {
                                     }
                                 }
                             }
-                            
-
                         }
-                        //Spacer()
                     }
                     
                     // Save/Update Button
