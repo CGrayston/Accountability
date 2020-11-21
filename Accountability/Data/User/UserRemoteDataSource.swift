@@ -13,6 +13,8 @@ import FirebaseFirestoreSwift
 
 protocol UserDataSource {
     
+    // MARK: - User CRUD Methods
+
     func fetchUser(completion: @escaping (Result<User, Error>) -> Void)
     
     func createUser(user: User, completion: @escaping (Result<Void, Error>) -> Void)
@@ -21,6 +23,8 @@ protocol UserDataSource {
     
     func logOutUser(completion: @escaping (Result<Void, Error>) -> Void)
     
+    // MARK: - Goal Template CRUD Methods
+
     func fetchGoalsTemplate(completion: @escaping (Result<[String: Int]?, Error>) -> Void)
     
     func addGoalTemplateEntry(request: GoalTemplateRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
@@ -31,6 +35,14 @@ protocol UserDataSource {
     
     func clearGoalsTemplate(completion: @escaping (Result<Void, Error>) -> Void)
     
+    // MARK: - Group CRUD Methods
+    
+    func addGroupId(groupId: String, completion: @escaping (Result<Void, Error>) -> Void)
+
+    func removeGroupId(completion: @escaping (Result<String, Error>) -> Void)
+    
+    // MARK: - Name/Title Verification Methods
+
     func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void)
     
     func isValidNewGoalTitle(newTitle: String, completion: @escaping (Result<Void, Error>) -> Void)
@@ -263,6 +275,69 @@ final class UserRemoteDataSource: UserDataSource {
         })
     }
 
+    // MARK: - Group CRUD Methods
+    
+    func addGroupId(groupId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        // Add groupId to user
+        guard let userId = Auth.auth().currentUser?.uid else {
+            completion(.failure(UserDataError.notAuthenticated))
+            return
+        }
+        
+        usersReference.document(userId).updateData([
+            "groupId": groupId,
+        ]) { error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            completion(.success(()))
+        }
+    }
+    
+    func removeGroupId(completion: @escaping (Result<String, Error>) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            completion(.failure(UserDataError.notAuthenticated))
+            return
+        }
+        
+        usersReference.document(userId).getDocument(completion: { [weak self] documentSnapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            } else {
+                guard let document = documentSnapshot else {
+                    completion(.failure(UserDataError.fetching))
+                    return
+                }
+                
+                guard let user = try? document.data(as: User.self) else {
+                    completion(.failure(UserDataError.noUser))
+                    return
+                }
+                
+                guard let goalsTemplate = user.groupId else {
+                    completion(.failure(UserDataError.fetching))
+                    return
+                }
+                
+                self?.usersReference.document(userId).updateData([
+                    "groupId": FieldValue.delete(),
+                ]) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    completion(.success(goalsTemplate))
+                }
+            }
+        })
+    }
+    
+    // TODO
+    
     // MARK: - Name/Title Verification Methods
     
     func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void) {

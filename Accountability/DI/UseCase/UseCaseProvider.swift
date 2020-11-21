@@ -116,4 +116,24 @@ class UseCaseProvider {
         let userRepository = RepositoryProvider().userRepository
         return FetchTemplateStatusUseCase(userRepository: userRepository)
     }()
+    
+    // MARK: - Groups
+    
+    lazy var joinGroupUseCase: JoinGroupUseCase = {
+        let groupRepository = RepositoryProvider().groupRepository
+        let userRepository = RepositoryProvider().userRepository
+        return JoinGroupUseCase(groupRepository: groupRepository, userRepository: userRepository)
+    }()
+    
+    lazy var createGroupUseCase: CreateGroupUseCase = {
+        let groupRepository = RepositoryProvider().groupRepository
+        let userRepository = RepositoryProvider().userRepository
+        return CreateGroupUseCase(groupRepository: groupRepository, userRepository: userRepository)
+    }()
+    
+    lazy var leaveGroupUseCase: LeaveGroupUseCase = {
+        let groupRepository = RepositoryProvider().groupRepository
+        let userRepository = RepositoryProvider().userRepository
+        return LeaveGroupUseCase(groupRepository: groupRepository, userRepository: userRepository)
+    }()
 }

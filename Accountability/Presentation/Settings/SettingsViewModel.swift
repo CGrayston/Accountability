@@ -16,14 +16,19 @@ protocol SettingsViewModelProtocol {
 
 class SettingsViewModel: ObservableObject {
     
-    @Published var user: User!
+    @Published var user: User?
         
     private let fetchUserUseCase = UseCaseProvider().fetchUserUseCase
     private let updateUserUseCase = UseCaseProvider().updateUserUseCase
+    private let leaveGroupUseCase = UseCaseProvider().leaveGroupUseCase
     private let logOutUserUseCase = UseCaseProvider().logOutUserUseCase
     
     private var cancellables = Set<AnyCancellable>()
 
+    var groupId: String? {
+        user?.groupId
+    }
+    
     init() {
         fetchUserUseCase.execute { [weak self] result in
             guard let self = self else { return }
@@ -31,24 +36,19 @@ class SettingsViewModel: ObservableObject {
             switch result {
             case .success(let userResponse):
                 self.user = userResponse
-                   
-                // TODO: Probably going to want to delete this. Don't want users to be able to change things so easily
-//                self.$user
-//                    .dropFirst()
-//                    .debounce(for: 1.0, scheduler: RunLoop.main)
-//                    .sink { [weak self] user in
-//                        self?.updateUser(user: user!)
-//                }
-//                .store(in: &self.cancellables)
-                
             case .failure(let error):
-                //fatalError(error.localizedDescription)
                 print(error.localizedDescription)
             }
         }
     }
+
+    func leaveGroupButtonTapped(completion: @escaping (Result<Void, Error>) -> Void) {
+        leaveGroupUseCase.execute { result in
+            completion(result)
+        }
+    }
     
-    func logOutUser() {
+    func logOutButtonTapped() {
         logOutUserUseCase.execute { result in
             switch result {
             case .success(_):

@@ -32,6 +32,12 @@ protocol UserRepository {
 
     func clearGoalsTemplate(completion: @escaping (Result<Void, Error>) -> Void)
     
+    // MARK: - Groups CRUD Methods
+    
+    func addGroupId(groupId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func removeGroupId(completion: @escaping (Result<String, Error>) -> Void)
+
     // MARK: - Username/Title Verification Methods
 
     func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void)
@@ -106,6 +112,21 @@ final class UserDataRepository: UserRepository {
             completion(result)
         }
     }
+    
+    // MARK: - Groups CRUD Methods
+    
+    func addGroupId(groupId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.addGroupId(groupId: groupId) { result in
+            completion(result)
+        }
+    }
+    
+    func removeGroupId(completion: @escaping (Result<String, Error>) -> Void) {
+        remoteDataSource.removeGroupId { result in
+            completion(result)
+        }
+    }
+
     
     // MARK: - Username/Title Verification Methods
     

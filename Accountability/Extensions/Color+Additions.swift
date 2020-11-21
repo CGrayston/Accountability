@@ -35,4 +35,5 @@ extension Color {
 extension Color {
     static let barBackground = Color("barBackground")
     static let background = Color("background")
+    static let gold = Color("gold")
 }

@@ -56,11 +56,12 @@ struct GoalProgressView: View {
                     guard isUIEnabled else { return }
                     
                     let generator = UINotificationFeedbackGenerator()
-                    
-                    if goalProgressViewModel.progress() >= 1 ||
-                        showingEditingMode {
+                
+                    if goalProgressViewModel.progress() >= 1 {
                         generator.notificationOccurred(.error)
                     } else {
+                        showingEditingMode = false
+                        
                         goalProgressViewModel.incrementGoalTimesThisWeek { result in
                             switch result {
                             case .success:

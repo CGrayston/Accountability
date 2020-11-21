@@ -22,7 +22,12 @@ struct GoalCollectionView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @State private var showingAlert = false
+    
     @State var showingAddGoal = false
+//    @State var showingSettings = false
+//    @State var showingLeaderboard = false
+
+    
     @State private var activeAlert: GoalCollectionActiveAlert = .generic {
         didSet {
             showingAlert = true
@@ -56,55 +61,7 @@ struct GoalCollectionView: View {
                         }
                     }
                     
-                    if showingAdditionalOptions {
-                        // Add Button HStack
-                        HStack {
-                            Spacer()
-                            Button(action: { self.showingAddGoal = true }) {
-                                if viewModel.hasGoals == false {
-                                    Text("Add Goal")
-                                        .font(.title)
-                                }
-                                
-                                ZStack {
-                                    Circle().fill()
-                                        .foregroundColor(.background)
-                                    
-                                    Image(systemName: "plus.circle.fill")
-                                        .resizable()
-                                        .opacity(1.0)
-                                }
-                                .frame(width: 48, height: 48)
-                            }
-                            .foregroundColor(.red)
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 24, trailing: 20))
-                        }
-                        .animation(.linear)
-                        .sheet(isPresented: $showingAddGoal, content: {
-                            let goal = Goal(title: "", timesThisWeek: 0, timesPerWeek: 1, weekStart: Date(), weekEnd: Date())
-                            let goalEditorViewModel = GoalEditorViewModel(goal: goal)
-                            GoalEditorView(viewModel: goalEditorViewModel, isEditingMode: false)
-                        })
-                    } else {
-                        // Additional Options button HStack
-                        HStack {
-                            Spacer()
-                            Button(action: { self.showingAdditionalOptions = true }) {
-                                ZStack {
-                                    Circle().fill()
-                                        .foregroundColor(.background)
-                                    
-                                    Image(systemName: "ellipsis.circle.fill")
-                                        .resizable()
-                                        .opacity(1.0)
-                                }
-                                .frame(width: 48, height: 48)
-                            }
-                            .foregroundColor(.gray)
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 24, trailing: 20))
-                        }
-                        .animation(.linear)
-                    }
+                    GoalOptionsBottomBar(showingAdditionalOptions: $showingAdditionalOptions, showingAddGoal: $showingAddGoal, viewModel: viewModel)
                 }
             }
             .onTapGesture {
@@ -197,7 +154,7 @@ struct GoalCollectionView: View {
         }
     }
     
-    func createThisWeeksGoalsFromTemplate() {
+    private func createThisWeeksGoalsFromTemplate() {
         viewModel.createThisWeeksGoalsFromTemplate { result in
             switch result {
             case .success:
@@ -205,6 +162,127 @@ struct GoalCollectionView: View {
             case .failure(_):
                 activeAlert = .generic
             }
+        }
+    }
+}
+
+struct GoalOptionsBottomBar: View {
+    
+    @Binding var showingAdditionalOptions: Bool
+    @Binding var showingAddGoal: Bool
+
+    @State var showingSettings: Bool = false
+    @State var showingLeaderboard: Bool = false
+    
+    @ObservedObject var viewModel: GoalCollectionViewModel
+
+    var body: some View {
+        if showingAdditionalOptions {
+            // Add Button HStack
+            HStack {                
+                // TODO: Implement Leaderboard function
+                if showingLeaderboard {
+                    // Leaderboard Button
+                    Button(action: {
+                        // TODO: showingLeaderboard
+                    }) {
+                        ZStack {
+                            Circle().fill()
+                                .foregroundColor(.gold)
+                            
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .opacity(1.0)
+                                .foregroundColor(.background)
+                                .frame(width: 24, height: 24)
+                        }
+                        .frame(width: 48, height: 48)
+                    }
+                    
+                    Spacer()
+                }
+                
+                // Settings Button
+                Button(action: {
+                    showingSettings.toggle()
+                }) {
+                    ZStack {
+                        Circle().fill()
+                            .foregroundColor(.red)
+
+                        Image(systemName: "gearshape.fill")
+                            .resizable()
+                            .opacity(1.0)
+                            .foregroundColor(.background)
+                            .frame(width: 24, height: 24)
+                    }
+                    .frame(width: 48, height: 48)
+                }
+                .sheet(isPresented: $showingSettings, content: {
+                    let settingsViewModel = SettingsViewModel()
+                    NavigationView {
+                        SettingsView(viewModel: settingsViewModel)
+                            .navigationBarTitle("Settings")
+                            .navigationBarItems(
+                                leading:
+                                    Button(action: {
+                                        showingSettings.toggle()
+                                    }, label: {
+                                        Image(systemName: "xmark")
+                                            .foregroundColor(.red)
+                                    })
+                            )
+                    }
+                })
+
+                Spacer()
+                
+                // Add Goals Button
+                Button(action: {
+                    showingAddGoal.toggle()
+                }) {
+                    if viewModel.hasGoals == false {
+                        Text("Add Goal")
+                            .font(.title)
+                    }
+                    
+                    ZStack {
+                        Circle().fill()
+                            .foregroundColor(.background)
+                        
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .opacity(1.0)
+                    }
+                    .frame(width: 48, height: 48)
+                }
+                .sheet(isPresented: $showingAddGoal, content: {
+                    let goal = Goal(title: "", timesThisWeek: 0, timesPerWeek: 1, weekStart: Date(), weekEnd: Date())
+                    let goalEditorViewModel = GoalEditorViewModel(goal: goal)
+                    GoalEditorView(viewModel: goalEditorViewModel, isEditingMode: false)
+                })
+            }
+            .padding(EdgeInsets(top: 0, leading: 20, bottom: 24, trailing: 20))
+            .animation(.linear)
+        } else {
+            // Additional Options button HStack
+            HStack {
+                Spacer()
+                Button(action: { self.showingAdditionalOptions.toggle() }) {
+                    ZStack {
+                        Circle().fill()
+                            .foregroundColor(.background)
+                        
+                        Image(systemName: "ellipsis.circle.fill")
+                            .resizable()
+                            .opacity(1.0)
+                    }
+                    .frame(width: 48, height: 48)
+                }
+                .foregroundColor(.gray)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 24, trailing: 20))
+            }
+            .animation(.linear)
         }
     }
 }

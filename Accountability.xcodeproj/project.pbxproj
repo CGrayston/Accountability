@@ -15,6 +15,9 @@
 		FF00460524F2FFAD0047B232 /* GoalProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00460424F2FFAD0047B232 /* GoalProgressViewModel.swift */; };
 		FF00460724F300190047B232 /* FetchGoalsThisWeekUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00460624F300190047B232 /* FetchGoalsThisWeekUseCase.swift */; };
 		FF00460924F300720047B232 /* UpdateGoalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00460824F300720047B232 /* UpdateGoalUseCase.swift */; };
+		FF0A60762564E7A6005CA8DC /* JoinGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A60752564E7A5005CA8DC /* JoinGroupViewModel.swift */; };
+		FF0A607B2564F02B005CA8DC /* CreateGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A607A2564F02B005CA8DC /* CreateGroupViewModel.swift */; };
+		FF0A608225658EC8005CA8DC /* AccountabilityGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A608125658EC8005CA8DC /* AccountabilityGroup.swift */; };
 		FF2192CE24E62D8800D8A316 /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2192CD24E62D8800D8A316 /* EntryListView.swift */; };
 		FF2192D024E6370100D8A316 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2192CF24E6370100D8A316 /* Entry.swift */; };
 		FF2192D924E643C600D8A316 /* EntryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2192D824E643C600D8A316 /* EntryListViewModel.swift */; };
@@ -41,6 +44,8 @@
 		FF8BDCE62505E822006F197F /* LogOutUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8BDCE52505E822006F197F /* LogOutUserUseCase.swift */; };
 		FF8DA0DC24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8DA0DB24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift */; };
 		FF9319AD254FD0FC008EAEF0 /* DeleteGoalRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9319AC254FD0FC008EAEF0 /* DeleteGoalRequestModel.swift */; };
+		FF9564CC255A55D800214832 /* JoinGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9564CB255A55D800214832 /* JoinGroupView.swift */; };
+		FF9564D2255A563900214832 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9564D1255A563900214832 /* CreateGroupView.swift */; };
 		FF9B83D4254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9B83D3254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift */; };
 		FF9B83D7254FBE8C00731FF8 /* TemplateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9B83D6254FBE8C00731FF8 /* TemplateStatus.swift */; };
 		FF9CC64B24DBB05F0065C9CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF9CC64A24DBB05F0065C9CF /* GoogleService-Info.plist */; };
@@ -50,6 +55,11 @@
 		FFA3E32124FB4EEA00145859 /* UpdateUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA3E32024FB4EEA00145859 /* UpdateUserUseCase.swift */; };
 		FFA3E32424FB5D4200145859 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA3E32324FB5D4200145859 /* SettingsViewModel.swift */; };
 		FFAE6FD824E3AC4A005FE734 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE6FD724E3AC4A005FE734 /* TabBarView.swift */; };
+		FFB086A2255CEFBC00CD335F /* JoinGroupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB086A1255CEFBC00CD335F /* JoinGroupUseCase.swift */; };
+		FFB086A5255CEFF800CD335F /* CreateGroupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB086A4255CEFF800CD335F /* CreateGroupUseCase.swift */; };
+		FFB086A8255CF00700CD335F /* LeaveGroupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB086A7255CF00700CD335F /* LeaveGroupUseCase.swift */; };
+		FFB086AD255CF08500CD335F /* GroupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB086AC255CF08500CD335F /* GroupRepository.swift */; };
+		FFB086B1255CF0EE00CD335F /* GroupRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB086B0255CF0EE00CD335F /* GroupRemoteDataSource.swift */; };
 		FFB7FCB725295A2500640651 /* GoalEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB7FCB625295A2500640651 /* GoalEditorView.swift */; };
 		FFB8AFF5252EA94000E6F079 /* Color+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB8AFF4252EA94000E6F079 /* Color+Additions.swift */; };
 		FFB8AFF8252ED36900E6F079 /* AddGoalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB8AFF7252ED36900E6F079 /* AddGoalUseCase.swift */; };
@@ -95,6 +105,9 @@
 		FF00460424F2FFAD0047B232 /* GoalProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressViewModel.swift; sourceTree = "<group>"; };
 		FF00460624F300190047B232 /* FetchGoalsThisWeekUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGoalsThisWeekUseCase.swift; sourceTree = "<group>"; };
 		FF00460824F300720047B232 /* UpdateGoalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalUseCase.swift; sourceTree = "<group>"; };
+		FF0A60752564E7A5005CA8DC /* JoinGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupViewModel.swift; sourceTree = "<group>"; };
+		FF0A607A2564F02B005CA8DC /* CreateGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewModel.swift; sourceTree = "<group>"; };
+		FF0A608125658EC8005CA8DC /* AccountabilityGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountabilityGroup.swift; sourceTree = "<group>"; };
 		FF2192CD24E62D8800D8A316 /* EntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListView.swift; sourceTree = "<group>"; };
 		FF2192CF24E6370100D8A316 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		FF2192D824E643C600D8A316 /* EntryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListViewModel.swift; sourceTree = "<group>"; };
@@ -124,6 +137,8 @@
 		FF8DA0DB24DCF1F8002BD054 /* SignInWithAppleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleCoordinator.swift; sourceTree = "<group>"; };
 		FF8DA0DD24DCF5EC002BD054 /* Accountability.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Accountability.entitlements; sourceTree = "<group>"; };
 		FF9319AC254FD0FC008EAEF0 /* DeleteGoalRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalRequestModel.swift; sourceTree = "<group>"; };
+		FF9564CB255A55D800214832 /* JoinGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupView.swift; sourceTree = "<group>"; };
+		FF9564D1255A563900214832 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		FF9B83D3254FBE7200731FF8 /* UpdateGoalTemplateRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalTemplateRequestModel.swift; sourceTree = "<group>"; };
 		FF9B83D6254FBE8C00731FF8 /* TemplateStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateStatus.swift; sourceTree = "<group>"; };
 		FF9CC64A24DBB05F0065C9CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -133,6 +148,11 @@
 		FFA3E32024FB4EEA00145859 /* UpdateUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserUseCase.swift; sourceTree = "<group>"; };
 		FFA3E32324FB5D4200145859 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		FFAE6FD724E3AC4A005FE734 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		FFB086A1255CEFBC00CD335F /* JoinGroupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupUseCase.swift; sourceTree = "<group>"; };
+		FFB086A4255CEFF800CD335F /* CreateGroupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupUseCase.swift; sourceTree = "<group>"; };
+		FFB086A7255CF00700CD335F /* LeaveGroupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveGroupUseCase.swift; sourceTree = "<group>"; };
+		FFB086AC255CF08500CD335F /* GroupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRepository.swift; sourceTree = "<group>"; };
+		FFB086B0255CF0EE00CD335F /* GroupRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRemoteDataSource.swift; sourceTree = "<group>"; };
 		FFB7FCB625295A2500640651 /* GoalEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalEditorView.swift; sourceTree = "<group>"; };
 		FFB8AFF4252EA94000E6F079 /* Color+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Additions.swift"; sourceTree = "<group>"; };
 		FFB8AFF7252ED36900E6F079 /* AddGoalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalUseCase.swift; sourceTree = "<group>"; };
@@ -223,6 +243,15 @@
 				FFD5C2BF254FB87200758747 /* Error */,
 			);
 			path = Goals;
+			sourceTree = "<group>";
+		};
+		FF0A60782564E7BD005CA8DC /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				FF0A60752564E7A5005CA8DC /* JoinGroupViewModel.swift */,
+				FF0A607A2564F02B005CA8DC /* CreateGroupViewModel.swift */,
+			);
+			path = Groups;
 			sourceTree = "<group>";
 		};
 		FF2192D124E6396000D8A316 /* Tasks */ = {
@@ -380,6 +409,7 @@
 				FF0045F724F23F4E0047B232 /* Goal.swift */,
 				FFCEE5AA24FAE9F900504D0C /* User.swift */,
 				FF2192CF24E6370100D8A316 /* Entry.swift */,
+				FF0A608125658EC8005CA8DC /* AccountabilityGroup.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -402,6 +432,7 @@
 				FF2192D224E6396C00D8A316 /* TabBar */,
 				FF2192D524E639B400D8A316 /* SignIn */,
 				FF2192D324E6398E00D8A316 /* Settings */,
+				FF9564CE255A55DD00214832 /* Groups */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -413,6 +444,7 @@
 				FF2192D724E643B100D8A316 /* Tasks */,
 				FF2192DA24E6444800D8A316 /* Entries */,
 				FFA3E32224FB5D2C00145859 /* Settings */,
+				FF0A60782564E7BD005CA8DC /* Groups */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -433,6 +465,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		FF9564CE255A55DD00214832 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				FF9564CB255A55D800214832 /* JoinGroupView.swift */,
+				FF9564D1255A563900214832 /* CreateGroupView.swift */,
+			);
+			path = Groups;
+			sourceTree = "<group>";
+		};
 		FF9CC64C24DBB9790065C9CF /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +481,7 @@
 				FF2192DC24E6455E00D8A316 /* Tasks */,
 				FF2192DD24E6456600D8A316 /* Entries */,
 				FFCEE5AF24FAEF2100504D0C /* User */,
+				FFB086B3255CFC5200CD335F /* Groups */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -450,6 +492,25 @@
 				FFA3E32324FB5D4200145859 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		FFB086AA255CF01900CD335F /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				FFB086A1255CEFBC00CD335F /* JoinGroupUseCase.swift */,
+				FFB086A4255CEFF800CD335F /* CreateGroupUseCase.swift */,
+				FFB086A7255CF00700CD335F /* LeaveGroupUseCase.swift */,
+			);
+			path = Groups;
+			sourceTree = "<group>";
+		};
+		FFB086B3255CFC5200CD335F /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				FFB086AC255CF08500CD335F /* GroupRepository.swift */,
+				FFB086B0255CF0EE00CD335F /* GroupRemoteDataSource.swift */,
+			);
+			path = Groups;
 			sourceTree = "<group>";
 		};
 		FFBFB10424E8CC2E00E984DA /* Extensions */ = {
@@ -469,6 +530,7 @@
 				FFBFB10C24EB95C500E984DA /* Tasks */,
 				FFBFB10D24EB95D900E984DA /* Entries */,
 				FFCEE5AC24FAEC8100504D0C /* User */,
+				FFB086AA255CF01900CD335F /* Groups */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -756,14 +818,17 @@
 				FF0045FF24F2F9FF0047B232 /* GoalRemoteDataSource.swift in Sources */,
 				FFD5C2C1254FB8BA00758747 /* FetchTemplateStatusUseCase.swift in Sources */,
 				FFBFB10624E8CC4200E984DA /* Date+Additions.swift in Sources */,
+				FF0A608225658EC8005CA8DC /* AccountabilityGroup.swift in Sources */,
 				FF5BAF0024D9258C004B2DE9 /* Task.swift in Sources */,
 				FFBFB10F24EB977700E984DA /* FetchAllEntriesUseCase.swift in Sources */,
 				FFB8AFF5252EA94000E6F079 /* Color+Additions.swift in Sources */,
 				FFD5C2BB254D0D5400758747 /* GoalsDomainError.swift in Sources */,
 				FF346E18253D4D7C00907D8B /* SignUpViewController.swift in Sources */,
+				FF9564D2255A563900214832 /* CreateGroupView.swift in Sources */,
 				FFB8AFF8252ED36900E6F079 /* AddGoalUseCase.swift in Sources */,
 				FF271C5E24F2150D000AF557 /* GoalCollectionView.swift in Sources */,
 				FFBFB11924EBA69F00E984DA /* DataSourceProvider.swift in Sources */,
+				FFB086A8255CF00700CD335F /* LeaveGroupUseCase.swift in Sources */,
 				FF5BAEEC24D92563004B2DE9 /* AppDelegate.swift in Sources */,
 				FF2192CE24E62D8800D8A316 /* EntryListView.swift in Sources */,
 				FF00460524F2FFAD0047B232 /* GoalProgressViewModel.swift in Sources */,
@@ -786,9 +851,11 @@
 				FF00460224F2FE830047B232 /* GoalCollectionViewModel.swift in Sources */,
 				FF9CC65024DBCE8F0065C9CF /* SignInWithAppleButton.swift in Sources */,
 				FF9CC64E24DBB98F0065C9CF /* TaskRepository.swift in Sources */,
+				FF9564CC255A55D800214832 /* JoinGroupView.swift in Sources */,
 				FF00460924F300720047B232 /* UpdateGoalUseCase.swift in Sources */,
 				FFCEE5AB24FAE9F900504D0C /* User.swift in Sources */,
 				FF76FC1A24F1EE5F00A8E6B5 /* SignInViewController.swift in Sources */,
+				FF0A607B2564F02B005CA8DC /* CreateGroupViewModel.swift in Sources */,
 				FFAE6FD824E3AC4A005FE734 /* TabBarView.swift in Sources */,
 				FF72915A24E0CAEB00170080 /* SettingsView.swift in Sources */,
 				FF8BDCE62505E822006F197F /* LogOutUserUseCase.swift in Sources */,
@@ -798,12 +865,17 @@
 				FFD5C2B8254D040C00758747 /* CreateThisWeeksGoalsFromTemplate.swift in Sources */,
 				FFCEE5B124FAEF3800504D0C /* UserRepository.swift in Sources */,
 				FF2192D924E643C600D8A316 /* EntryListViewModel.swift in Sources */,
+				FF0A60762564E7A6005CA8DC /* JoinGroupViewModel.swift in Sources */,
 				FFCEE5AE24FAECAD00504D0C /* CreateUserUseCase.swift in Sources */,
 				FFD7615E253CF3C9004DE189 /* UpdateGoalRequestModel.swift in Sources */,
 				FFBFB11B24EBA8F100E984DA /* UseCaseProvider.swift in Sources */,
+				FFB086A2255CEFBC00CD335F /* JoinGroupUseCase.swift in Sources */,
 				FFBFB10B24EB95B800E984DA /* UseCase.swift in Sources */,
+				FFB086AD255CF08500CD335F /* GroupRepository.swift in Sources */,
+				FFB086A5255CEFF800CD335F /* CreateGroupUseCase.swift in Sources */,
 				FFBFB13A24EE4B4500E984DA /* FetchAllTasksUseCase.swift in Sources */,
 				FF807A1E25354B37005D424B /* DeleteGoalUseCase.swift in Sources */,
+				FFB086B1255CF0EE00CD335F /* GroupRemoteDataSource.swift in Sources */,
 				FFBFB13C24EE4BA800E984DA /* UpdateTaskUseCase.swift in Sources */,
 				FF00460724F300190047B232 /* FetchGoalsThisWeekUseCase.swift in Sources */,
 				FF69C503253772A90023F92E /* PersonalGoalsProgressBar.swift in Sources */,
@@ -953,7 +1025,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Accountability/Accountability.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Accountability/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2P8CC25627;
 				ENABLE_PREVIEWS = YES;
@@ -978,7 +1050,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Accountability/Accountability.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Accountability/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2P8CC25627;
 				ENABLE_PREVIEWS = YES;

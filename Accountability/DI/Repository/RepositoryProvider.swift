@@ -37,4 +37,11 @@ class RepositoryProvider {
         let userRemoteDataSource = DataSourceProvider().userRemoteDataSource
         return UserDataRepository(remoteDataSource: userRemoteDataSource)
     }()
+    
+    //MARK: - Group
+    
+    lazy var groupRepository: GroupRepository = {
+        let groupRemoteDataSource = DataSourceProvider().groupRemoteDataSource
+        return GroupDataRepository(remoteDataSource: groupRemoteDataSource)
+    }()
 }

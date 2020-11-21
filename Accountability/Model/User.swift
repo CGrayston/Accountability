@@ -18,4 +18,7 @@ struct User: Identifiable, Codable {
     var dateCreated: Date
     var userId: String
     var goalsTemplate: [String: Int]?
+    
+    // TODO: Make sure this is the name we want and if we want it to be nil
+    var groupId: String?
 }

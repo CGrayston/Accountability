@@ -27,8 +27,6 @@ struct GoalEditorView: View {
     
     var isEditingMode: Bool
 
-
-    
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
@@ -36,7 +34,7 @@ struct GoalEditorView: View {
                     VStack {
                         let goalProgressVM = GoalProgressViewModel(goal: viewModel.goal)
                         GoalProgressView(goalProgressViewModel: goalProgressVM, showingEditingMode: .constant(false), isUIEnabled: false)
-                            .padding(.top)
+                            .padding(.top).padding(.top)
                         
                         List {
                             // Title
@@ -105,7 +103,17 @@ struct GoalEditorView: View {
                             .cornerRadius(8)
                     }
                 }
+                .ignoresSafeArea(.keyboard)
                 .navigationBarTitle(isEditingMode ? "Edit Goal" : "Add New Goal", displayMode: .inline)
+                .navigationBarItems(
+                    leading:
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.red)
+                        })
+                )
                 .alert(isPresented: $showingAlert) {
                     var title = ""
                     var message = ""

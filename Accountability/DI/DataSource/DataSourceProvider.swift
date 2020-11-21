@@ -33,4 +33,10 @@ class DataSourceProvider {
     lazy var userRemoteDataSource: UserDataSource = {
         return UserRemoteDataSource()
     }()
+    
+    // MARK: - Group
+    
+    lazy var groupRemoteDataSource: GroupDataSource = {
+        return GroupRemoteDataSource()
+    }()
 }
