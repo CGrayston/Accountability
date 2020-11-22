@@ -18,7 +18,7 @@ enum GoalCollectionActiveAlert {
 
 struct GoalCollectionView: View {
     
-    @ObservedObject var viewModel = GoalCollectionViewModel()
+    @ObservedObject var viewModel: GoalCollectionViewModel
     @Environment(\.colorScheme) var colorScheme
     
     @State private var showingAlert = false
@@ -174,6 +174,7 @@ struct GoalOptionsBottomBar: View {
     @State var showingSettings: Bool = false
     @State var showingLeaderboard: Bool = false
     
+    @EnvironmentObject var appState: AppState
     @ObservedObject var viewModel: GoalCollectionViewModel
 
     var body: some View {
@@ -219,7 +220,7 @@ struct GoalOptionsBottomBar: View {
                     .frame(width: 48, height: 48)
                 }
                 .sheet(isPresented: $showingSettings, content: {
-                    let settingsViewModel = SettingsViewModel()
+                    let settingsViewModel = SettingsViewModel(user: appState.user)
                     NavigationView {
                         SettingsView(viewModel: settingsViewModel)
                             .navigationBarTitle("Settings")

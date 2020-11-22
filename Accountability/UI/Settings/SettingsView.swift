@@ -150,6 +150,7 @@ struct UserField: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(viewModel: SettingsViewModel())
+        let mockUser = User(id: "1234", name: "Mock User", username: "Mock Guy", email: "mock@gmail.com", dateCreated: Date(), userId: "5678", goalsTemplate: ["First Goal": 1], groupId: "ABCDEFG")
+        SettingsView(viewModel: SettingsViewModel(user: mockUser))
     }
 }

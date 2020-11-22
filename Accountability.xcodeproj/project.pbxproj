@@ -91,6 +91,7 @@
 		FFD7615E253CF3C9004DE189 /* UpdateGoalRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7615D253CF3C9004DE189 /* UpdateGoalRequestModel.swift */; };
 		FFD92B2F2539641300DFE11E /* GoalTemplateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD92B2E2539641300DFE11E /* GoalTemplateRequestModel.swift */; };
 		FFEACC5424DBA475002346E1 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEACC5324DBA475002346E1 /* TaskListViewModel.swift */; };
+		FFEE8CF82569AF0200A05008 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEE8CF72569AF0200A05008 /* AppState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,6 +184,7 @@
 		FFD7615D253CF3C9004DE189 /* UpdateGoalRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalRequestModel.swift; sourceTree = "<group>"; };
 		FFD92B2E2539641300DFE11E /* GoalTemplateRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTemplateRequestModel.swift; sourceTree = "<group>"; };
 		FFEACC5324DBA475002346E1 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
+		FFEE8CF72569AF0200A05008 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -561,6 +563,7 @@
 				FFBFB11524EB9E8100E984DA /* UseCase */,
 				FFBFB11424EB9E7B00E984DA /* Repository */,
 				FFBFB11324EB9E7300E984DA /* DataSource */,
+				FFEE8CF72569AF0200A05008 /* AppState.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -813,6 +816,7 @@
 				FFC74F0924E8B3BA00895292 /* EntryEditorView.swift in Sources */,
 				FFBFB13E24EE4BEA00E984DA /* AddTaskUseCase.swift in Sources */,
 				FFBFB13824EE478D00E984DA /* TaskRemoteDataSource.swift in Sources */,
+				FFEE8CF82569AF0200A05008 /* AppState.swift in Sources */,
 				FF2192DF24E6457D00D8A316 /* EntryRepository.swift in Sources */,
 				FF9CC65224DBCF860065C9CF /* SignInView.swift in Sources */,
 				FF0045FF24F2F9FF0047B232 /* GoalRemoteDataSource.swift in Sources */,

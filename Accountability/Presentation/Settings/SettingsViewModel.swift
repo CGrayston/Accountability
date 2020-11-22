@@ -29,17 +29,8 @@ class SettingsViewModel: ObservableObject {
         user?.groupId
     }
     
-    init() {
-        fetchUserUseCase.execute { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let userResponse):
-                self.user = userResponse
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+    init(user: User) {
+        self.user = user
     }
 
     func leaveGroupButtonTapped(completion: @escaping (Result<Void, Error>) -> Void) {

@@ -14,6 +14,7 @@ import GoogleSignIn
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var appState: AppState?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -28,13 +29,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         // Determine where to send the user
-        Auth.auth().addStateDidChangeListener { (auth, user) in
+        Auth.auth().addStateDidChangeListener { [self] (auth, user) in
             if Auth.auth().currentUser != nil {
                 // User is signed in.
-                window.rootViewController = UIHostingController(rootView: TabBarView())
+                appState = AppState()
+                window.rootViewController = UIHostingController(rootView: TabBarView().environmentObject(appState.unsafelyUnwrapped))
             } else {
                 // No user is signed in.
 //                window.rootViewController = UIHostingController(rootView: SignInView())
+                appState = nil
                 window.rootViewController = SignInViewController()
             }
         }

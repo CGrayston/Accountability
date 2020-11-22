@@ -10,15 +10,18 @@ import SwiftUI
 
 struct TabBarView: View {
     
-    private let tabFont: Font = .system(size: 24, weight: .regular)
-    
+    @EnvironmentObject var appState: AppState
     @State var selectedView = 0
+    
+    private let tabFont: Font = .system(size: 24, weight: .regular)
     
     var body: some View {
         
         TabView(selection: $selectedView) {
             // Goals tab
-            GoalCollectionView()
+            let goals = appState.goals
+            let goalCollectionViewModel = GoalCollectionViewModel(goals: goals)
+            GoalCollectionView(viewModel: goalCollectionViewModel)
                 .tabItem {
                     Image(systemName: "bolt.circle.fill")
                         .font(tabFont)

@@ -32,10 +32,6 @@ class GoalCollectionViewModel: ObservableObject {
         return goals.count > 0
     }
     
-    init() {
-        fetchAllGoals()
-    }
-    
     init(goals: [Goal]) {
         self.goals = goals
         
@@ -47,34 +43,6 @@ class GoalCollectionViewModel: ObservableObject {
         }
         .assign(to: \.goalProgressViewModels, on : self)
         .store(in: &self.cancellables)
-    }
-    
-    func fetchAllGoals() {
-        fetchAllGoalsUseCase.execute { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let goals):
-                self.goals = goals
-                
-                self.$goals
-                    .map { goals in
-                        goals.map { goal in
-                            GoalProgressViewModel(goal: goal)
-                        }
-                }
-                .assign(to: \.goalProgressViewModels, on : self)
-                .store(in: &self.cancellables)
-                
-                if goals.count == 0 {
-                    self.fetchTemplateStatusUseCase.execute { result in
-                        self.fetchTemplateStatus(result)
-                    }
-                }
-            case .failure(let error):
-                fatalError(error.localizedDescription)
-            }
-        }
     }
     
     func createThisWeeksGoalsFromTemplate(completion: @escaping (Result<Void, Error>) -> Void) {
