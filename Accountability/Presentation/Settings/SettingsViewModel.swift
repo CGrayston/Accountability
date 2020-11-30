@@ -40,7 +40,7 @@ class SettingsViewModel: ObservableObject {
     }
     
     func logOutButtonTapped() {
-        logOutUserUseCase.execute { result in
+        self.logOutUserUseCase.execute { result in
             switch result {
             case .success(_):
                 break

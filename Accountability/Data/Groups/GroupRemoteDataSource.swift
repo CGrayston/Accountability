@@ -15,11 +15,13 @@ import FirebaseFirestoreSwift
 
 protocol GroupDataSource {
     
+    func fetchGroup(completion: @escaping (Result<AccountabilityGroup?, Error>) -> Void)
+    
     func joinGroup(groupId: String, completion: @escaping (Result<Void, Error>) -> Void)
 
     func createGroup(name: String, completion: @escaping (Result<String, Error>) -> Void)
     
-    func leaveGroup(groupId: String, completion: @escaping (Result<Void, Error>) -> Void) 
+    func leaveGroup(groupId: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class GroupRemoteDataSource: GroupDataSource {
@@ -29,6 +31,44 @@ final class GroupRemoteDataSource: GroupDataSource {
     init() {
         // TODO: Add API mapping
         self.groupsReference = Firestore.firestore().collection("groups")
+    }
+    
+    // MARK: - Group Data Source Methods
+    
+    func fetchGroup(completion: @escaping (Result<AccountabilityGroup?, Error>) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            completion(.failure(GroupDataError.notAuthenticated))
+            return
+        }
+        
+        groupsReference
+            .whereField("members.\(userId)", isEqualTo: true)
+            .limit(to: 1)
+            .addSnapshotListener { documentSnapshot, error in
+                if let documentSnapshot = documentSnapshot {
+                    if documentSnapshot.isEmpty {
+                        completion(.success(nil))
+                        return
+                    }
+                    
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    do {
+                        if let group = try documentSnapshot.documents.first?.data(as: AccountabilityGroup.self) {
+                            completion(.success(group))
+                            return
+                        } else {
+                            completion(.success(nil))
+                            return
+                        }
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
+            }
     }
     
     func joinGroup(groupId: String, completion: @escaping (Result<Void, Error>) -> Void) {

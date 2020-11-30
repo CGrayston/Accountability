@@ -41,6 +41,8 @@ protocol UserDataSource {
 
     func removeGroupId(completion: @escaping (Result<String, Error>) -> Void)
     
+    func fetchGroupMemberNames(memberIds: [String], completion: @escaping (Result<[String: String], Error>) -> Void)
+    
     // MARK: - Name/Title Verification Methods
 
     func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void)
@@ -129,8 +131,10 @@ final class UserRemoteDataSource: UserDataSource {
             print ("Error signing out: %@", signOutError)
         }
     }
-    
-    // MARK: - Goal Template CRUD Methods
+}
+
+// MARK: - Goal Template CRUD Methods
+extension UserRemoteDataSource {
     
     func fetchGoalsTemplate(completion: @escaping (Result<[String: Int]?, Error>) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else {
@@ -274,8 +278,10 @@ final class UserRemoteDataSource: UserDataSource {
             completion(.success(()))
         })
     }
+}
 
-    // MARK: - Group CRUD Methods
+// MARK: - Group CRUD Methods
+extension UserRemoteDataSource {
     
     func addGroupId(groupId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         // Add groupId to user
@@ -336,9 +342,38 @@ final class UserRemoteDataSource: UserDataSource {
         })
     }
     
-    // TODO
-    
-    // MARK: - Name/Title Verification Methods
+    func fetchGroupMemberNames(memberIds: [String], completion: @escaping (Result<[String: String], Error>) -> Void) {
+        usersReference.whereField("userId", in: memberIds)
+            .getDocuments { querySnapshot, error in
+                if let querySnapshot = querySnapshot {
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    // Get matching users from the query
+                    let users: [User] = querySnapshot.documents.compactMap { document in
+                        do {
+                            return try document.data(as: User.self)
+                        } catch {
+                            completion(.failure(error))
+                        }
+                        return nil
+                    }
+                    
+                    // Create [userId: name] dictionary
+                    let memberNames = users.reduce(into: [String: String]()) { dict, user in
+                        dict[user.userId] = user.name
+                    }
+                    
+                    completion(.success(memberNames))
+                }
+            }
+    }
+}
+
+// MARK: - Name/Title Verification Methods
+extension UserRemoteDataSource {
     
     func isUniqueUserName(username: String, completion: @escaping (Result<Void, Error>) -> Void) {
         // Check if username is unique

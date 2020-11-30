@@ -23,6 +23,8 @@ protocol GoalRepository {
     func incrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
     
     func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func fetchGroupGoalsThisWeek(memberIds: [String], completion: @escaping (Result<[Goal], Error>) -> Void)
 }
 
 final class GoalDataRepository: GoalRepository {
@@ -32,6 +34,8 @@ final class GoalDataRepository: GoalRepository {
     init(remoteDataSource: GoalDataSource) {
         self.remoteDataSource = remoteDataSource
     }
+    
+    // MARK: - Default Goal Implementation
     
     func fetchGoalsThisWeek(completion: @escaping (Result<[Goal], Error>) -> Void) {
         remoteDataSource.fetchGoalsThisWeek { result in
@@ -71,6 +75,16 @@ final class GoalDataRepository: GoalRepository {
     
     func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         remoteDataSource.decrementGoalTimesThisWeek(goalId: goalId) { result in
+            completion(result)
+        }
+    }
+}
+
+// MARK: - Leaderboard Goal Implementation
+extension GoalDataRepository {
+    
+    func fetchGroupGoalsThisWeek(memberIds: [String], completion: @escaping (Result<[Goal], Error>) -> Void) {
+        remoteDataSource.fetchGroupGoalsThisWeek(memberIds: memberIds) { result in
             completion(result)
         }
     }

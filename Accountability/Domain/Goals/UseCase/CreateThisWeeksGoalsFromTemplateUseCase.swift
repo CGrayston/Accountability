@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CreateThisWeeksGoalsFromTemplate: VoidUseCase {
+class CreateThisWeeksGoalsFromTemplateUseCase: VoidUseCase {
         
     let goalRepository: GoalRepository
     let userRepository: UserRepository

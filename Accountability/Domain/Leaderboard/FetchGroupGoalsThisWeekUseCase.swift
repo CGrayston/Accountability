@@ -1,15 +1,16 @@
 //
-//  FetchAllGoalsUseCase.swift
+//  FetchGroupGoalsThisWeekUseCase.swift
 //  Accountability
 //
-//  Created by Christopher Grayston on 8/23/20.
+//  Created by Christopher Grayston on 11/21/20.
 //  Copyright © 2020 Christopher Grayston. All rights reserved.
 //
 
 import Foundation
 
-class FetchGoalsThisWeekUseCase: VoidRequestUseCase {
+class FetchGroupGoalsThisWeekUseCase: UseCase {
     
+    typealias Request = [String]
     typealias Response = [Goal]
     
     let goalRepository: GoalRepository
@@ -18,8 +19,8 @@ class FetchGoalsThisWeekUseCase: VoidRequestUseCase {
         self.goalRepository = goalRepository
     }
     
-    func execute(completion: @escaping (Result<Response, Error>) -> Void) {
-        goalRepository.fetchGoalsThisWeek { result in
+    func execute(request: [String], completion: @escaping (Result<Response, Error>) -> Void) {
+        goalRepository.fetchGroupGoalsThisWeek(memberIds: request) { result in
             completion(result)
         }
     }

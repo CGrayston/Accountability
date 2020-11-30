@@ -14,16 +14,14 @@ class UseCaseProvider {
     
     lazy var fetchAllGoalsUseCase: FetchGoalsThisWeekUseCase = {
         let goalRepository = RepositoryProvider().goalRepository
-        let userRepository = RepositoryProvider().userRepository
-        let errorMapper = GoalsTemplateToErrorMapper()
-        return FetchGoalsThisWeekUseCase(goalRepository: goalRepository, userRepository: userRepository, goalsTemplateToErrorMapper: errorMapper)
+        return FetchGoalsThisWeekUseCase(goalRepository: goalRepository)
     }()
     
-    lazy var createThisWeeksGoalsFromTemplate: CreateThisWeeksGoalsFromTemplate = {
+    lazy var createThisWeeksGoalsFromTemplateUseCase: CreateThisWeeksGoalsFromTemplateUseCase = {
         let goalRepository = RepositoryProvider().goalRepository
         let userRepository = RepositoryProvider().userRepository
         let errorMapper = GoalsTemplateToErrorMapper()
-        return CreateThisWeeksGoalsFromTemplate(goalRepository: goalRepository, userRepository: userRepository)
+        return CreateThisWeeksGoalsFromTemplateUseCase(goalRepository: goalRepository, userRepository: userRepository)
     }()
     
     lazy var addGoalUseCase: AddGoalUseCase = {
@@ -119,6 +117,11 @@ class UseCaseProvider {
     
     // MARK: - Groups
     
+    lazy var fetchGroupUseCase: FetchGroupUseCase = {
+        let groupRepository = RepositoryProvider().groupRepository
+        return FetchGroupUseCase(groupRepository: groupRepository)
+    }()
+    
     lazy var joinGroupUseCase: JoinGroupUseCase = {
         let groupRepository = RepositoryProvider().groupRepository
         let userRepository = RepositoryProvider().userRepository
@@ -135,5 +138,17 @@ class UseCaseProvider {
         let groupRepository = RepositoryProvider().groupRepository
         let userRepository = RepositoryProvider().userRepository
         return LeaveGroupUseCase(groupRepository: groupRepository, userRepository: userRepository)
+    }()
+    
+    // MARK: - Leaderboard
+    
+    lazy var fetchGroupGoalsThisWeekUseCase: FetchGroupGoalsThisWeekUseCase = {
+        let goalRepository = RepositoryProvider().goalRepository
+        return FetchGroupGoalsThisWeekUseCase(goalRepository: goalRepository)
+    }()
+    
+    lazy var fetchGroupMemberNamesUseCase: FetchGroupMemberNamesUseCase = {
+        let userRepository = RepositoryProvider().userRepository
+        return FetchGroupMemberNamesUseCase(userRepository: userRepository)
     }()
 }

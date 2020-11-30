@@ -36,7 +36,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 window.rootViewController = UIHostingController(rootView: TabBarView().environmentObject(appState.unsafelyUnwrapped))
             } else {
                 // No user is signed in.
-//                window.rootViewController = UIHostingController(rootView: SignInView())
                 appState = nil
                 window.rootViewController = SignInViewController()
             }

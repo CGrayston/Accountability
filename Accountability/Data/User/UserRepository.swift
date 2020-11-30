@@ -37,6 +37,8 @@ protocol UserRepository {
     func addGroupId(groupId: String, completion: @escaping (Result<Void, Error>) -> Void)
     
     func removeGroupId(completion: @escaping (Result<String, Error>) -> Void)
+    
+    func fetchGroupMemberNames(memberIds: [String], completion: @escaping (Result<[String: String], Error>) -> Void)
 
     // MARK: - Username/Title Verification Methods
 
@@ -123,6 +125,12 @@ final class UserDataRepository: UserRepository {
     
     func removeGroupId(completion: @escaping (Result<String, Error>) -> Void) {
         remoteDataSource.removeGroupId { result in
+            completion(result)
+        }
+    }
+    
+    func fetchGroupMemberNames(memberIds: [String], completion: @escaping (Result<[String: String], Error>) -> Void) {
+        remoteDataSource.fetchGroupMemberNames(memberIds: memberIds) { result in
             completion(result)
         }
     }

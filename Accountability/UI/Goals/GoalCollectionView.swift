@@ -19,14 +19,11 @@ enum GoalCollectionActiveAlert {
 struct GoalCollectionView: View {
     
     @ObservedObject var viewModel: GoalCollectionViewModel
+    @EnvironmentObject var appState: AppState
     @Environment(\.colorScheme) var colorScheme
     
     @State private var showingAlert = false
-    
     @State var showingAddGoal = false
-//    @State var showingSettings = false
-//    @State var showingLeaderboard = false
-
     
     @State private var activeAlert: GoalCollectionActiveAlert = .generic {
         didSet {
@@ -101,7 +98,7 @@ struct GoalCollectionView: View {
                 
                 case .goalFTUX:
                     title = "Welcome!"
-                    message = "Create a goal and start tracking. \nOnce you create a goal, long press to increment goal progress and single tap to enter goal editor."
+                    message = "Create a goal and start tracking. \nOnce you create a goal, long press to increment goal progress. The goal editor can be accessed by pressing the ellipse button in the bottom right."
                     
                     primaryButton = Alert.Button.default(Text("Cancel"))
                     secondaryButton = Alert.Button.default(Text("Ok")) {
@@ -134,20 +131,22 @@ struct GoalCollectionView: View {
                     return Alert(title: alertTitle, message: alertMessage)
                 }
             }
-            .onAppear {
-                viewModel.fetchTemplateStatus = { result in
-                    switch result {
-                    case .success(let templateStatus):
-                        switch templateStatus {
-                        case .nilTemplate:
-                            activeAlert = .goalFTUX
-                        case .emptyTemplate:
-                            activeAlert = .noGoals
-                        case .hasTemplate:
-                            activeAlert = .newWeek
+            .onReceive(appState.$goals) { goals in
+                if goals?.isEmpty == true {
+                    viewModel.recievedEmptyAppStateGoals { result in
+                        switch result {
+                        case .success(let templateStatus):
+                            switch templateStatus {
+                            case .nilTemplate:
+                                activeAlert = .goalFTUX
+                            case .emptyTemplate:
+                                activeAlert = .noGoals
+                            case .hasTemplate:
+                                activeAlert = .newWeek
+                            }
+                        case .failure(let error):
+                            activeAlert = .customError(errorMessage: error.localizedDescription)
                         }
-                    case .failure(let error):
-                        activeAlert = .customError(errorMessage: error.localizedDescription)
                     }
                 }
             }
@@ -155,7 +154,7 @@ struct GoalCollectionView: View {
     }
     
     private func createThisWeeksGoalsFromTemplate() {
-        viewModel.createThisWeeksGoalsFromTemplate { result in
+        viewModel.newWeekButtonPressed { result in
             switch result {
             case .success:
                 showingAlert = false
@@ -181,11 +180,10 @@ struct GoalOptionsBottomBar: View {
         if showingAdditionalOptions {
             // Add Button HStack
             HStack {                
-                // TODO: Implement Leaderboard function
-                if showingLeaderboard {
+                if let _ = appState.user.groupId {
                     // Leaderboard Button
                     Button(action: {
-                        // TODO: showingLeaderboard
+                        showingLeaderboard.toggle()
                     }) {
                         ZStack {
                             Circle().fill()
@@ -199,6 +197,16 @@ struct GoalOptionsBottomBar: View {
                         }
                         .frame(width: 48, height: 48)
                     }
+                    .sheet(isPresented: $showingLeaderboard, content: {
+                        NavigationView {
+                            if let groupGoals = appState.groupGoals,
+                               let memberNames = appState.memberNames,
+                               let thisUserId = appState.user.userId {
+                                let leaderboardViewModel = LeaderboardViewModel(groupGoals: groupGoals, memberNames: memberNames, thisUserId: thisUserId)
+                                Leaderboard(viewModel: leaderboardViewModel)
+                            }
+                        }
+                    })
                     
                     Spacer()
                 }

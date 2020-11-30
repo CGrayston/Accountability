@@ -12,11 +12,11 @@ import Combine
 class GoalCollectionViewModel: ObservableObject {
 
     @Published var goalProgressViewModels = [GoalProgressViewModel]()
-    @Published private var goals = [Goal]()
+    @Published var goals = [Goal]()
 
     private let fetchAllGoalsUseCase = UseCaseProvider().fetchAllGoalsUseCase
     private let fetchTemplateStatusUseCase = UseCaseProvider().fetchTemplateStatusUseCase
-    private let createThisWeeksGoalsFromTemplate = UseCaseProvider().createThisWeeksGoalsFromTemplate
+    private let createThisWeeksGoalsFromTemplateUseCase = UseCaseProvider().createThisWeeksGoalsFromTemplateUseCase
     private var cancellables = Set<AnyCancellable>()
     
     var totalProgress: Double {
@@ -26,14 +26,22 @@ class GoalCollectionViewModel: ObservableObject {
         return totalTimesPerWeek == 0 ? 0 : Double(totalTimesThisWeek)/Double(totalTimesPerWeek)
     }
     
-    var fetchTemplateStatus: ((Result<TemplateStatus, Error>) -> Void) = { _ in }
-        
     var hasGoals: Bool {
         return goals.count > 0
     }
     
-    init(goals: [Goal]) {
+    init(goals: [Goal]?) {
+        guard let goals = goals else {
+            return
+        }
+        
         self.goals = goals
+        
+//        if goals.count == 0 {
+//            fetchTemplateStatusUseCase.execute(completion: { result in
+//                self.fetchTemplateStatus(result)
+//            })
+//        }
         
         self.$goals
             .map { goals in
@@ -45,9 +53,15 @@ class GoalCollectionViewModel: ObservableObject {
         .store(in: &self.cancellables)
     }
     
-    func createThisWeeksGoalsFromTemplate(completion: @escaping (Result<Void, Error>) -> Void) {
-        createThisWeeksGoalsFromTemplate.execute { result in
+    func newWeekButtonPressed(completion: @escaping (Result<Void, Error>) -> Void) {
+        createThisWeeksGoalsFromTemplateUseCase.execute { result in
             completion(result)
         }
+    }
+    
+    func recievedEmptyAppStateGoals(completion: @escaping (Result<TemplateStatus, Error>) -> Void) {
+        fetchTemplateStatusUseCase.execute(completion: { result in
+            completion(result)
+        })
     }
 }

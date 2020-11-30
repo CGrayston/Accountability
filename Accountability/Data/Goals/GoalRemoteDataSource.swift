@@ -26,6 +26,8 @@ protocol GoalDataSource {
     func incrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
     
     func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func fetchGroupGoalsThisWeek(memberIds: [String], completion: @escaping (Result<[Goal], Error>) -> Void)
 }
 
 final class GoalRemoteDataSource: GoalDataSource {
@@ -33,7 +35,6 @@ final class GoalRemoteDataSource: GoalDataSource {
     private let goalsReference: CollectionReference
     
     init() {
-        // TODO: Add API mapping
         self.goalsReference = Firestore.firestore().collection("goals")
     }
     
@@ -166,7 +167,43 @@ final class GoalRemoteDataSource: GoalDataSource {
     }
 }
 
-// TODO: Error handling
+// MARK: - Leaderboard Goal Data Source Implementation
+extension GoalRemoteDataSource {
+    
+    func fetchGroupGoalsThisWeek(memberIds: [String], completion: @escaping (Result<[Goal], Error>) -> Void) {
+        guard let startOfWeek = Date().startOfWeek,
+              let endOfWeek = Date().endOfWeek else {
+            fatalError("Date helper class isn't working")
+        }
+        
+        goalsReference
+            .whereField("userId", in: memberIds)
+            .whereField("weekStart", isGreaterThanOrEqualTo: startOfWeek)
+            .whereField("weekStart", isLessThanOrEqualTo: endOfWeek)
+            .addSnapshotListener { (querySnapshot, error) in
+                if let querySnapshot = querySnapshot {
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    let goals: [Goal] = querySnapshot.documents.compactMap { document in
+                        do {
+                            return try document.data(as: Goal.self)
+                        }
+                        catch {
+                            completion(.failure(error))
+                        }
+                        return nil
+                    }
+                    
+                    completion(.success(goals))
+                }
+            }
+    }
+}
+
+// TODO: Better error handling
 enum GoalDataError: Error {
     case fetching
     case noGoalDataThisWeek

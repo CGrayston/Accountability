@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct AccountabilityGroup: Identifiable, Codable {
+struct AccountabilityGroup: Identifiable, Codable, Equatable {
 
     @DocumentID var id: String?
     var name: String

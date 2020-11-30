@@ -33,13 +33,6 @@ struct TabBarView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .font(tabFont)
             }.tag(1)
-
-            // Group Chat tab
-//            Text("TODO: Group Chat")
-//                .tabItem {
-//                    Image(systemName: "bubble.middle.bottom.fill")
-//                        .font(tabFont)
-//            }.tag(2)
             
             // Journal tab
             EntryListView()
