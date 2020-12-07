@@ -20,6 +20,20 @@ class GoalProgressViewModel: ObservableObject, Identifiable {
     private let updateGoalUseCase = UseCaseProvider().updateGoalUseCase
     private let incrementGoalTimesThisWeekUseCase = UseCaseProvider().incrementGoalTimesThisWeekUseCase
         
+    var completedTodayOrForTheWeek: Bool {
+        guard let some: [Date] = goal.completions?.map({ Date(timeIntervalSinceReferenceDate: $0) }) else {
+            return false
+        }
+        
+        let completedToday = !some.allSatisfy({ $0.isDateToday() == false })
+        let finishedForWeek = goal.timesThisWeek == goal.timesPerWeek
+        return completedToday || finishedForWeek
+    }
+    
+    var completedForWeek: Bool {
+        return goal.timesThisWeek == goal.timesPerWeek
+    }
+    
     init(goal: Goal) {
         self.goal = goal
         
@@ -29,22 +43,6 @@ class GoalProgressViewModel: ObservableObject, Identifiable {
         }
         .assign(to: \.id, on: self)
         .store(in: &cancellables)
-        
-        // TODO: Remove?
-//        $goal
-//            .dropFirst()
-//            .debounce(for: 0.3, scheduler: RunLoop.main)
-//            .sink { [weak self] goal in
-//                self?.updateGoalUseCase.execute(request: goal) { result in
-//                    switch result {
-//                    case .success(_):
-//                        break
-//                    case .failure(let error):
-//                        print("Error updating goal: \(error.localizedDescription)")
-//                    }
-//                }
-//        }
-//        .store(in: &cancellables)
     }
     
     func incrementGoalTimesThisWeek(completion: @escaping (Result<Void, Error>) -> Void) {

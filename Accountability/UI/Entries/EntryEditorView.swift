@@ -23,7 +23,7 @@ struct EntryEditorView: View {
                 TextField("TODO: Make custom textView", text: $viewModel.entry.body)
             }
         }
-        .navigationBarTitle("\(viewModel.entry.createdTime.fullTimeNoneFormatter())", displayMode: .inline)
+        .navigationBarTitle("\(viewModel.entry.createdTime.fullTimeShortFormatter())", displayMode: .inline)
         .padding(.horizontal)
     }
 }

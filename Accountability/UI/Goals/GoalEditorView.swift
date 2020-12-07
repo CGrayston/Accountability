@@ -12,7 +12,7 @@ enum GoalEditorActiveAlert {
     case blankTitle
     case duplicatePassword
     case deletingGoal
-    case decrementTimesThisWeek
+    case decrementTimesThisWeek(completionTimeInterval: TimeInterval)
     case generic
 }
 
@@ -22,6 +22,7 @@ struct GoalEditorView: View {
     
     @State private var showingAlert = false
     @State private var activeAlert: GoalEditorActiveAlert = .generic
+    @State private var goalsCompletedExpanded = true
 
     @Environment(\.presentationMode) var presentationMode
     
@@ -30,61 +31,80 @@ struct GoalEditorView: View {
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
-                ZStack(alignment: .bottom) {
-                    VStack {
-                        let goalProgressVM = GoalProgressViewModel(goal: viewModel.goal)
-                        GoalProgressView(goalProgressViewModel: goalProgressVM, showingEditingMode: .constant(false), isUIEnabled: false)
-                            .padding(.top).padding(.top)
+                VStack {
+                    let goalProgressVM = GoalProgressViewModel(goal: viewModel.goal)
+                    GoalProgressView(goalProgressViewModel: goalProgressVM, showingEditingMode: .constant(false), isUIEnabled: false)
+                        .padding(.top).padding(.top)
+                    
+                    List {
+                        // Title
+                        Section(header: Text("Title").font(.body)) {
+                            TextField("New Goal Title", text: $viewModel.goal.title)
+                        }
                         
-                        List {
-                            // Title
-                            Section(header: Text("Title").font(.body)) {
-                                TextField("New Goal Title", text: $viewModel.goal.title)
+                        // Times Per Week
+                        Section(header: Text("Times Per Week").font(.body)) {
+                            let timesThisWeek = viewModel.goal.timesThisWeek
+                            let timesPerWeek = $viewModel.goal.timesPerWeek
+                            
+                            let lowerBound = isEditingMode ? (timesThisWeek > 1 ? timesThisWeek : 1) : 1
+                            let upperBound = 50
+                            
+                            Stepper(value: timesPerWeek, in: lowerBound...upperBound) {
+                                
+                                Label("\(timesPerWeek.wrappedValue) \(timesPerWeek.wrappedValue == 1 ? "time" : "times") per week", systemImage: "circle.dashed")
+                                    .accentColor(.red)
                             }
                             
-                            // Times Per Week
-                            Section(header: Text("Times Per Week").font(.body)) {
-                                let timesThisWeek = viewModel.goal.timesThisWeek
-                                let timesPerWeek = $viewModel.goal.timesPerWeek
-                                
-                                let lowerBound = isEditingMode ? (timesThisWeek > 1 ? timesThisWeek : 1) : 1
-                                let upperBound = 50
-                                
-                                Stepper(value: timesPerWeek, in: lowerBound...upperBound) {
-                                    
-                                    Label("\(timesPerWeek.wrappedValue) \(timesPerWeek.wrappedValue == 1 ? "time" : "times") per week", systemImage: "circle.dashed")
-                                }
-                                
-                                if isEditingMode {
-                                    Button(action: {
-                                        guard timesThisWeek > 0 else {
-                                            let generator = UINotificationFeedbackGenerator()
-                                            generator.notificationOccurred(.error)
-                                            return
-                                        }
-                                        
-                                        activeAlert = .decrementTimesThisWeek
-                                        showingAlert = true
-                                    }) {
-                                        Label("Decrement", systemImage: "arrow.uturn.backward")
-                                    }
-                                    .disabled(timesThisWeek == 0)
-                                }
-                            }
-                            
-                            // Delete
                             if isEditingMode {
-                                Section(header: Text("Delete").font(.body)) {
-                                    Button(action: {
-                                        activeAlert = .deletingGoal
-                                        showingAlert = true
-                                    }) {
-                                        Label("Delete Goal", systemImage: "trash")
+                                
+                            }
+                        }
+                        
+                        // Times This Week
+                        if let completions = viewModel.goal.completions,
+                           completions.isEmpty == false,
+                           isEditingMode {
+                            Section(header: Text("Times This Week").font(.body)) {
+                                DisclosureGroup("Goals Completed This Week", isExpanded: $goalsCompletedExpanded) {
+                                    ForEach(completions, id: \.self) { completion in
+                                        let date = Date(timeIntervalSinceReferenceDate: completion)
+                                        Text("\(date.fullTimeShortFormatter())")
                                     }
+                                    .onDelete(perform: { indexSet in
+                                        if let first = indexSet.first {
+                                            let completion = completions[first]
+                                            removeCompletion(completion: completion)
+                                        }
+                                    })
+                                }
+                                
+                                Button(action: {
+                                    if let lastCompletion = completions.last {
+                                        activeAlert = .decrementTimesThisWeek(completionTimeInterval: lastCompletion)
+                                        showingAlert = true
+                                    }
+                                }) {
+                                    Label("Decrement Last Completion", systemImage: "arrow.uturn.backward")
+                                        .accentColor(.red)
+                                }
+                            }
+                        }
+                        
+                        // Delete
+                        if isEditingMode {
+                            Section(header: Text("Delete").font(.body)) {
+                                Button(action: {
+                                    activeAlert = .deletingGoal
+                                    showingAlert = true
+                                }) {
+                                    Label("Delete Goal", systemImage: "trash")
+                                        .accentColor(.red)
                                 }
                             }
                         }
                     }
+                    
                     
                     // Save/Update Button
                     Button(action: {
@@ -102,6 +122,7 @@ struct GoalEditorView: View {
                             .background(Color.secondary)
                             .cornerRadius(8)
                     }
+                    .background(Color.background)
                 }
                 .ignoresSafeArea(.keyboard)
                 .navigationBarTitle(isEditingMode ? "Edit Goal" : "Add New Goal", displayMode: .inline)
@@ -138,13 +159,13 @@ struct GoalEditorView: View {
                         confirmButton = Alert.Button.destructive(Text("Delete")) {
                             handleDeleteCurrentGoal()
                         }
-                    case .decrementTimesThisWeek:
+                    case .decrementTimesThisWeek(let dateToDelete):
                         title = "Decrement Progress?"
-                        message = "Are you sure you want to decrement your progress this week?"
+                        message = "Are you sure you want to remove your last completed goal this week?"
                         
                         cancelButton = Alert.Button.default(Text("Cancel"))
-                        confirmButton = Alert.Button.destructive(Text("Decrement")) {
-                            handleDecrementGoalTimesThisWeek()
+                        confirmButton = Alert.Button.destructive(Text("Remove")) {
+                            removeCompletion(completion: dateToDelete)
                         }
                     }
                     
@@ -180,6 +201,22 @@ struct GoalEditorView: View {
         }
     }
     
+    private func removeCompletion(completion: TimeInterval) {
+        let generator = UINotificationFeedbackGenerator()
+        
+        viewModel.decrementGoalTimesThisWeek(completionDate: completion) { result in
+            switch result {
+            case .success:
+                generator.notificationOccurred(.success)
+            case .failure:
+                // TODO: Figure out how to send back to back alerts if there was another error
+                generator.notificationOccurred(.warning)
+                activeAlert = .generic
+                showingAlert = true
+            }
+        }
+    }
+
     private func handleAddNewGoal() {
         viewModel.addNewGoal { result in
             switch result {
@@ -193,22 +230,6 @@ struct GoalEditorView: View {
                 } else {
                     activeAlert = .generic
                 }
-                showingAlert = true
-            }
-        }
-    }
-    
-    private func handleDecrementGoalTimesThisWeek() {
-        let generator = UINotificationFeedbackGenerator()
-
-        viewModel.decrementGoalTimesThisWeek { result in
-            switch result {
-            case .success:
-                generator.notificationOccurred(.success)
-            case .failure:
-                // TODO: Figure out how to send back to back alerts if there was another error
-                generator.notificationOccurred(.warning)
-                activeAlert = .generic
                 showingAlert = true
             }
         }
@@ -230,7 +251,7 @@ struct GoalEditorView: View {
 
 struct GoalEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        let goal = Goal(id: "111", title: "Workout Mock Title", timesThisWeek: 0, timesPerWeek: 5, weekStart: Date(), weekEnd: Date(), userId: "1111")
+        let goal = Goal(id: "111", title: "Workout Mock Title", timesThisWeek: 0, timesPerWeek: 5, weekStart: Date(), weekEnd: Date(), completions: [601887343.438227, 628886316.438227, 628387316.438227, 628887386.438227], userId: "1111")
         let goalEditorVM = GoalEditorViewModel(goal: goal)
         GoalEditorView(viewModel: goalEditorVM, isEditingMode: true)
     }

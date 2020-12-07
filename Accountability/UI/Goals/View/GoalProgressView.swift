@@ -45,6 +45,15 @@ struct GoalProgressView: View {
                             .bold()
                         Text("\(goalProgressViewModel.goal.timesThisWeek) of \(goalProgressViewModel.goal.timesPerWeek)")
                             .foregroundColor(.gray)
+                        
+                        if goalProgressViewModel.completedTodayOrForTheWeek {
+                            Image(systemName: "checkmark.seal.fill")
+                                .foregroundColor(goalProgressViewModel.completedForWeek ? .gold : .green)
+                                .background(
+                                    Color.black.mask(Circle().inset(by: 5))
+                                        .opacity(0.7)
+                                )
+                        }
                     }
                     .animation(.none)
                 }
@@ -111,8 +120,16 @@ struct GoalProgressView: View {
 
 struct GoalProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        let goal = Goal(id: "111", title: "Workout Mock Title", timesThisWeek: 0, timesPerWeek: 5, weekStart: Date(), weekEnd: Date(), userId: "1111")
+        let completions = [
+            Date().timeIntervalSinceReferenceDate,
+        ]
+        
+        let goal = Goal(id: "111", title: "Workout Mock Title", timesThisWeek: 5, timesPerWeek: 5, weekStart: Date(), weekEnd: Date(), completions: completions, userId: "1111")
         let viewModel = GoalProgressViewModel(goal: goal)
-        GoalProgressView(goalProgressViewModel: viewModel, showingEditingMode: .constant(true))
+        Group {
+            GoalProgressView(goalProgressViewModel: viewModel, showingEditingMode: .constant(false))
+            GoalProgressView(goalProgressViewModel: viewModel, showingEditingMode: .constant(false))
+                .preferredColorScheme(.dark)
+        }
     }
 }

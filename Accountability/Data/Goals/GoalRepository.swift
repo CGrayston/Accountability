@@ -22,7 +22,7 @@ protocol GoalRepository {
     
     func incrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
     
-    func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func decrementGoalTimesThisWeek(requestModel: DecrementGoalRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
     
     func fetchGroupGoalsThisWeek(memberIds: [String], completion: @escaping (Result<[Goal], Error>) -> Void)
 }
@@ -73,8 +73,8 @@ final class GoalDataRepository: GoalRepository {
         }
     }
     
-    func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        remoteDataSource.decrementGoalTimesThisWeek(goalId: goalId) { result in
+    func decrementGoalTimesThisWeek(requestModel: DecrementGoalRequestModel, completion: @escaping (Result<Void, Error>) -> Void) {
+        remoteDataSource.decrementGoalTimesThisWeek(requestModel: requestModel) { result in
             completion(result)
         }
     }

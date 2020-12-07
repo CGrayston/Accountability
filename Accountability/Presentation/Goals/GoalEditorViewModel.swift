@@ -6,6 +6,7 @@
 //  Copyright © 2020 Christopher Grayston. All rights reserved.
 //
 
+import Foundation
 import Combine
 
 class GoalEditorViewModel: ObservableObject {
@@ -79,13 +80,14 @@ class GoalEditorViewModel: ObservableObject {
         }
     }
     
-    func decrementGoalTimesThisWeek(completion: @escaping (Result<Void, Error>) -> Void) {
+    func decrementGoalTimesThisWeek(completionDate: TimeInterval, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let goalId = goal.id else {
             completion(.failure(InputError.nilGoalId))
             return
         }
         
-        decrementGoalTimesThisWeekUseCase.execute(request: goalId) { result in
+        let requestModel = DecrementGoalRequestModel(goalId: goalId, completionDate: completionDate)
+        decrementGoalTimesThisWeekUseCase.execute(request: requestModel) { result in
             completion(result)
         }
     }

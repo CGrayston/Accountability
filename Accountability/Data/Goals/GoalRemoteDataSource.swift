@@ -25,7 +25,7 @@ protocol GoalDataSource {
     
     func incrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
     
-    func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func decrementGoalTimesThisWeek(requestModel: DecrementGoalRequestModel, completion: @escaping (Result<Void, Error>) -> Void)
     
     func fetchGroupGoalsThisWeek(memberIds: [String], completion: @escaping (Result<[Goal], Error>) -> Void)
 }
@@ -144,7 +144,8 @@ final class GoalRemoteDataSource: GoalDataSource {
     
     func incrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         goalsReference.document(goalId).updateData([
-            "timesThisWeek": FieldValue.increment(Int64(1))
+            "timesThisWeek": FieldValue.increment(Int64(1)),
+            "completions": FieldValue.arrayUnion([Date.timeIntervalSinceReferenceDate])
         ], completion: { error in
             if let error = error {
                 completion(.failure(error))
@@ -154,16 +155,17 @@ final class GoalRemoteDataSource: GoalDataSource {
         })
     }
     
-    func decrementGoalTimesThisWeek(goalId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        goalsReference.document(goalId).updateData([
-            "timesThisWeek": FieldValue.increment(Int64(-1))
+    func decrementGoalTimesThisWeek(requestModel: DecrementGoalRequestModel, completion: @escaping (Result<Void, Error>) -> Void) {
+        goalsReference.document(requestModel.goalId).updateData([
+            "timesThisWeek": FieldValue.increment(Int64(-1)),
+            "completions": FieldValue.arrayRemove([requestModel.completionDate]),
         ], completion: { error in
             if let error = error {
                 completion(.failure(error))
             } else {
                 completion(.success(()))
             }
-        })
+        })        
     }
 }
 

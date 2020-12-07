@@ -49,11 +49,11 @@ extension Date {
         
         return dateFormatter.string(from: self)
     }
-    
-    func fullTimeNoneFormatter() -> String {
+        
+    func fullTimeShortFormatter() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .none
+        dateFormatter.timeStyle = .short
         
         return dateFormatter.string(from: self)
     }
@@ -64,5 +64,10 @@ extension Date {
         dateFormatter.timeStyle = .none
         
         return dateFormatter.string(from: self)
+    }
+    
+    func isDateToday() -> Bool {
+        let gregorian = Calendar(identifier: .gregorian)
+        return gregorian.isDateInToday(self)
     }
 }

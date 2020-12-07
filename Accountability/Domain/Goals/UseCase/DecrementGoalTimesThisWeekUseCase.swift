@@ -10,7 +10,7 @@ import Foundation
 
 class DecrementGoalTimesThisWeekUseCase: VoidResponseUseCase {
     
-    typealias Request = String
+    typealias Request = DecrementGoalRequestModel
     
     let goalRepository: GoalRepository
     
@@ -19,7 +19,7 @@ class DecrementGoalTimesThisWeekUseCase: VoidResponseUseCase {
     }
     
     func execute(request: Request, completion: @escaping (Result<Void, Error>) -> Void) {
-        goalRepository.decrementGoalTimesThisWeek(goalId: request) { result in
+        goalRepository.decrementGoalTimesThisWeek(requestModel: request) { result in
             completion(result)
         }
     }
